@@ -70,6 +70,7 @@ io.on("connection", socket => {
       io.sockets.emit("getNewMessage", data);
     });
     socket.on("requestAllMessages", data => {
+      console.log("here got the data" + data);
       socket.emit("getAllMessages", messageList);
     });
   });
