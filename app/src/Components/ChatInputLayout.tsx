@@ -71,8 +71,8 @@ export default function ChatInputLayout() {
     await socket.emit("getToneAnalysis", message);
   };
   return (
-    <div style={{ bottom: "0px", position: "fixed", width: "100%" }}>
-      <div className="input-group mb-3">
+    <div className="chat-input-layout">
+      <div className="input-group">
         <input
           type="text"
           className="form-control"
