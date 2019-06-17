@@ -56,7 +56,8 @@ export default function LoginProvider(props) {
                         userName: userData.userName,
                         status: "online",
                         email: userData.email,
-                        uid: uid
+                        uid: uid,
+                        name: userData.name
                       };
                       await setLoginInfo({
                         ...loginInfo,
@@ -64,7 +65,7 @@ export default function LoginProvider(props) {
                         user: userDetails,
                         uid: uid
                       });
-                      console.log(userDetails);
+                      // console.log(userDetails);
                     }
                   });
               }
@@ -72,52 +73,9 @@ export default function LoginProvider(props) {
         }
       })
       .catch(err => {
-        console.log(err.message);
+        //console.log(err.message);
+        openSnackbar({ message: err.message });
       });
-    // getAuth()
-    //   .signInWithEmailAndPassword(email, password)
-    //   .then(res => {})
-    //   .catch(err => {
-    //     console.log(err);
-    //     if (err.code === "auth/user-not-found")
-    //       openSnackbar({
-    //         message: LOGIN_EMAIL_NOT_FOUND,
-    //         timeout: SNACKBAR_TIMEOUT
-    //       });
-    //     else
-    //       openSnackbar({
-    //         message: LOGIN_FAILED_MESSAGE,
-    //         timeout: SNACKBAR_TIMEOUT
-    //       });
-    //   });
-  };
-  const logOutUser = async uid => {
-    // setOffline(uid);
-    // setLoginDetails(false, uid, null);
-    // var unsubscribe = getDb()
-    //   .collection("users")
-    //   .doc(uid)
-    //   .onSnapshot(
-    //     documentSnapshot => {
-    //       var doc = documentSnapshot.data();
-    //       if (doc) {
-    //         var state = doc.state;
-    //         console.log(state);
-    //         if (state === "offline") {
-    //           unsubscribe();
-    //           getAuth()
-    //             .signOut()
-    //             .then(res => {});
-    //         } else {
-    //           return false;
-    //         }
-    //       }
-    //       return false;
-    //     },
-    //     err => {
-    //       return false;
-    //     }
-    //   );
   };
   const getDb = () => {
     return firebase.firestore();
@@ -135,7 +93,7 @@ export default function LoginProvider(props) {
     return false;
   };
 
-  const signUp = async (email, password, userName) => {
+  const signUp = async (email, password, userName, name) => {
     //var val = await checkUserName(userName);
 
     var firebaseDoc = await getDb()
@@ -155,7 +113,8 @@ export default function LoginProvider(props) {
               email: email,
               userName: userName,
               uid: user.user.uid,
-              status: "online"
+              status: "online",
+              name: name
             };
             console.log(user.user.uid);
             var createUser = await getDb()

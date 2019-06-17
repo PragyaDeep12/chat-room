@@ -27,25 +27,24 @@ export default function CustomSnackbar() {
     openSnackbarFn = openSnackbar;
   }, []);
   return (
-    <Snackbar
-      anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "center"
-      }}
-      open={snack.open}
-      autoHideDuration={snack.timeout}
-      onClose={() => {
-        setSnack({
-          open: false,
-          timeout: 0,
-          message: ""
-        });
-      }}
-      ContentProps={{
-        "aria-describedby": "message-id"
-      }}
-      message={<span id="message-id">{snack.message}</span>}
-    />
+    <div
+      className="alert alert-warning alert-dismissible fade show"
+      role="alert"
+      hidden={!snack.open}
+    >
+      <strong>{snack.message}</strong>
+      <button
+        type="button"
+        className="close"
+        data-dismiss="alert"
+        aria-label="Close"
+        onClick={() => {
+          setSnack({ ...snack, open: false });
+        }}
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
   );
 }
 

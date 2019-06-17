@@ -3,4 +3,5 @@ export default interface User {
   email: String | null;
   uid: String | null;
   status: String | null;
+  name: String | null;
 }

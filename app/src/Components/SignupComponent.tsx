@@ -9,6 +9,7 @@ export default function SignupComponent(props) {
   } = useContext<any>(LoginContext);
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [rPassword, setRPassword] = useState("");
   const [error, setError] = useState<{ type; error_message }>({
@@ -18,14 +19,14 @@ export default function SignupComponent(props) {
   const formSubmit = async e => {
     e.preventDefault();
     // setError({ type: "username", error_message: "Name Already Exist" });
-    if (userName == null || email == null || password == null) {
+    if (userName == null || email == null || password == null || name == null) {
       alert("one or more fields might be empty");
     } else {
       if (password !== rPassword) {
         alert("password and alert password do not match");
       } else {
         //final signup
-        var res = await signUp(email, password, userName);
+        var res = await signUp(email, password, userName, name);
       }
     }
   };
@@ -48,6 +49,17 @@ export default function SignupComponent(props) {
               }}
               className="form-control"
               placeholder="Username"
+            />
+          </div>
+          <div className="input-group mb-3">
+            <input
+              type="text"
+              name="name"
+              onChange={e => {
+                setName(e.target.value);
+              }}
+              className="form-control"
+              placeholder="Full Name"
             />
           </div>
           <div className="input-group mb-3">
