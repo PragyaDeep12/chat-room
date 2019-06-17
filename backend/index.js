@@ -44,6 +44,7 @@ io.on("connection", socket => {
     socket.username = data.username;
   });
   socket.on("disconnect", data => {
+    //called when disconnected
     console.log(data);
   });
   socket.on("videoUpdate", data => {
