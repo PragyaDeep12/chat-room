@@ -65,8 +65,8 @@ export default function ChatInputLayout() {
   //     return <img className="emoji sad-emoji" />;
   //   };
   return (
-    <div style={{ bottom: "0px", position: "fixed", width: "100%" }}>
-      <div className="input-group mb-3">
+    <div className="chat-input-layout">
+      <div className="input-group">
         <input
           type="text"
           className="form-control"

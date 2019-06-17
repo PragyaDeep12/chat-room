@@ -67,3 +67,8 @@
   background: url("../icons/background1.jpg");
   background-repeat: repeat;
 }
+.chat-input-layout {
+  position: fixed;
+  bottom: 0px;
+  width: 100vw;
+}
