@@ -47,6 +47,9 @@ io.on("connection", socket => {
     //called when disconnected
     console.log(data);
   });
+  socket.on("getOnlineUsers", data => {
+    console.log(data);
+  });
   socket.on("videoUpdate", data => {
     console.log("video Avail");
     console.log(data);
