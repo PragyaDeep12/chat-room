@@ -65,6 +65,14 @@ io.on("connection", socket => {
       console.log("result");
       socket.emit("toneAnalysed", result);
     });
+    socket.on("newMessage", data => {
+      messageList.push(data);
+      io.sockets.emit("getNewMessage", data);
+    });
+    socket.on("requestAllMessages", data => {
+      console.log("here got the data" + data);
+      socket.emit("getAllMessages", messageList);
+    });
   });
 });
 
