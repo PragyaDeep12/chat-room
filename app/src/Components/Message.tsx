@@ -1,5 +1,5 @@
 import * as React from "react";
-import Message from "../Models/message";
+import Message from "../Models/Message";
 export default function Message(message: Message) {
   return (
     <div className="message-box">
