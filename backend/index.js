@@ -44,6 +44,10 @@ io.on("connection", socket => {
     socket.username = data.username;
   });
   socket.on("disconnect", data => {
+    //called when disconnected
+    console.log(data);
+  });
+  socket.on("getOnlineUsers", data => {
     console.log(data);
   });
   socket.on("videoUpdate", data => {
@@ -60,6 +64,13 @@ io.on("connection", socket => {
       console.log("Tone resolved: ");
       console.log("result");
       socket.emit("toneAnalysed", result);
+    });
+    socket.on("newMessage", data => {
+      messageList.push(data);
+      io.sockets.emit("getNewMessage", data);
+    });
+    socket.on("requestAllMessages", data => {
+      socket.emit("getAllMessages", messageList);
     });
   });
 });
@@ -80,7 +91,7 @@ const getToneAnalysis = text => {
         sentences: false
       };
 
-      //initiating Analysis
+      //initiating Analysis using watson sdk
       await toneAnalyzer
         .tone(toneParams)
         .then(toneAnalysis => {
