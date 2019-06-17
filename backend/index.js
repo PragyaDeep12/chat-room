@@ -80,7 +80,7 @@ const getToneAnalysis = text => {
         sentences: false
       };
 
-      //initiating Analysis
+      //initiating Analysis sdk
       await toneAnalyzer
         .tone(toneParams)
         .then(toneAnalysis => {
