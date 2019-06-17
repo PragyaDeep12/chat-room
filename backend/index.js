@@ -54,7 +54,6 @@ io.on("connection", socket => {
       video: data
     });
   });
-  //tonen analyse sdk
   socket.on("getToneAnalysis", data => {
     var analyseText = data;
     getToneAnalysis(analyseText).then(result => {
