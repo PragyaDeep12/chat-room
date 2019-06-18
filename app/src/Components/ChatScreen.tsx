@@ -7,7 +7,6 @@ export default function ChatScreen() {
       isMounted = true;
       console.log("condsole");
       socket.emit("requestAllMessages", { data: "OKO" });
-
       socket.on("getAllMessages", data => {
         console.log("calles");
         console.log(data);
