@@ -1,0 +1,74 @@
+.myVideo {
+  text-align: center;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  width: 600px;
+  height: 400px;
+  display: none;
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg); /* Safari and Chrome */
+  -moz-transform: rotateY(180deg); /* Firefox */
+}
+.horizontal-rotate {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg); /* Safari and Chrome */
+  -moz-transform: rotateY(180deg); /* Firefox */
+}
+.captured_image {
+  height: 200px;
+  width: 300px;
+}
+.basic-form {
+  display: absolute;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 20px;
+  max-width: 400px;
+}
+.pointer {
+  cursor: pointer;
+}
+.hyperlink:hover {
+  text-decoration: none;
+}
+.app-icon {
+  margin-top: 30px;
+  width: 80px;
+  height: 80px;
+}
+.send-icon {
+  content: url("../icons/send-button.svg");
+}
+.emoji {
+  width: 20px;
+  height: 20px;
+}
+.sad-emoji {
+  content: url("../icons/sad.svg");
+  object-fit: cover;
+}
+.confused-emoji {
+  content: url("../icons/confused.svg");
+  object-fit: cover;
+}
+.happy-emoji {
+  content: url("../icons/happy.svg");
+  object-fit: cover;
+}
+.angry-emoji {
+  content: url("../icons/angry.svg");
+  object-fit: cover;
+}
+.scared-emoji {
+  content: url("../icons/scared.svg");
+}
+.chat-app-background {
+  background: url("../icons/background1.jpg");
+  background-repeat: repeat;
+}
+.chat-input-layout {
+  position: fixed;
+  bottom: 0px;
+  width: 100vw;
+}
