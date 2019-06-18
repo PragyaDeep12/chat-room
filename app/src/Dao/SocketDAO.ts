@@ -1,3 +1,3 @@
 export const socket = require("socket.io-client")(
-  "https://fast-cove-89498.herokuapp.com/"
+  "https://still-oasis-63050.herokuapp.com/"
 );
