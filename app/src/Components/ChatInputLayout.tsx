@@ -6,11 +6,17 @@ export default function ChatInputLayout() {
   const [message, setMessage] = React.useState();
   const [emojiClassName, setEmojiClassName] = useState("emoji confused-emoji");
   const emojiFetch = useDebounce(message, 1000);
-
+  const sendMessage = async message => {
+    await socket.emit("newMessage", message);
+    console.log(message);
+  };
   let isMounted = false;
   React.useEffect(() => {
     if (!isMounted) {
       isMounted = true;
+      socket.on("newMessageRecieved", data => {
+        console.log(data);
+      });
       socket.on("toneAnalysed", data => {
         console.log(data);
         console.log(data.document_tone.tones);
@@ -68,7 +74,7 @@ export default function ChatInputLayout() {
 
   const getEmoji = async () => {
     console.log("getting emoji");
-    // await socket.emit("getToneAnalysis", message);
+    await socket.emit("getToneAnalysis", message);
   };
   return (
     <div className="chat-input-layout">
@@ -91,13 +97,11 @@ export default function ChatInputLayout() {
             className="input-group-text"
             id="basic-addon2"
             onClick={() => {
-              var message: Message = {
+              sendMessage({
                 userName: "Pragya",
                 message: "firstMessage",
                 time: new Date()
-              };
-              console.log(message);
-              socket.emit("newMessage", message);
+              });
             }}
           >
             <img className=" emoji send-icon" alt="" />

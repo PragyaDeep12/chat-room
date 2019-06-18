@@ -63,28 +63,27 @@ io.on("connection", socket => {
       console.log("result");
       socket.emit("toneAnalysed", result);
     });
+  });
+  //called when newMessage Comes from user
+  socket.on("newMessage", data => {
+    console.log(data);
+    try {
+      // messageList.push(dssata);
+      io.sockets.emit("getNewMessage", data);
+    } catch (err) {
+      console.log("Error= " + err);
+    }
+  });
 
-    //called when newMessage Comes from user
-    socket.on("newMessage", data => {
-      console.log(data);
-      try {
-        // messageList.push(dssata);
-        io.sockets.emit("getNewMessage", data);
-      } catch (err) {
-        console.log("Error= " + err);
-      }
-    });
-
-    //request for all messages
-    socket.on("requestAllMessages", data => {
-      console.log("here got the data" + data);
-      try {
-        // socket.emit("getAllMessages", messageList);
-        socket.emit("getAllMessages", { status: "OK" });
-      } catch (err) {
-        console.log("Error= " + err);
-      }
-    });
+  //request for all messages
+  socket.on("requestAllMessages", data => {
+    console.log("here got the data" + data);
+    try {
+      // socket.emit("getAllMessages", messageList);
+      socket.emit("getAllMessages", { status: "OK" });
+    } catch (err) {
+      console.log("Error= " + err);
+    }
   });
 });
 
