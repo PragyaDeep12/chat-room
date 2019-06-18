@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import { socket } from "../Dao/VideoChatDao";
+import { socket } from "../Dao/SocketDAO";
 export default function ChatScreen() {
   let isMounted = false;
   useEffect(() => {
     if (!isMounted) {
+      isMounted = true;
       console.log("condsole");
-      socket.emit("requestAllMessages", "nodata");
+      socket.emit("requestAllMessages", { data: "OKO" });
 
       socket.on("getAllMessages", data => {
         console.log("calles");
@@ -14,8 +15,7 @@ export default function ChatScreen() {
       socket.on("getNewMessage", data => {
         console.log(data);
       });
-      isMounted = true;
     }
-  });
+  }, []);
   return <div />;
 }

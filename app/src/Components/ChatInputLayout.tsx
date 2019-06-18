@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { socket } from "../Dao/VideoChatDao";
 import { useDebounce } from "./Debouncer";
 import Message from "../Models/Message";
+import { socket } from "../Dao/SocketDAO";
 export default function ChatInputLayout() {
   const [message, setMessage] = React.useState();
   const [emojiClassName, setEmojiClassName] = useState("emoji confused-emoji");
@@ -68,7 +68,7 @@ export default function ChatInputLayout() {
 
   const getEmoji = async () => {
     console.log("getting emoji");
-    await socket.emit("getToneAnalysis", message);
+    // await socket.emit("getToneAnalysis", message);
   };
   return (
     <div className="chat-input-layout">

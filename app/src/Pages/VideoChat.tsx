@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import VideoList from "../Components/VideoChat/VideoList";
-import { streamVideo, socket } from "../Dao/VideoChatDao";
 import { setMaxListeners } from "cluster";
 import { showVideo, clickPicture } from "../Uitls";
+import { socket } from "../Dao/SocketDAO";
 
 export default function VideoChat() {
   const [videoList, setVideoList] = useState<any[]>([]);

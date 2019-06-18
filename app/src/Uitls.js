@@ -1,4 +1,4 @@
-import { socket } from "./Dao/VideoChatDao";
+import { socket } from "./Dao/SocketDAO";
 
 export function showVideo(video, canvas) {
   var vendorURL = window.URL || window.webkitURL;

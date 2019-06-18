@@ -15,6 +15,7 @@ import LoginProvider from "./Contexts/LoginProvider";
 import CustomSnackbar from "./Components/CustomSnackBar";
 
 import { Redirect } from "react-router-dom";
+
 function App() {
   return (
     <div className="App">

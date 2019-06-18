@@ -1,6 +1,5 @@
-export const socket = require("socket.io-client")(
-  "https://fast-cove-89498.herokuapp.com/"
-);
+import { socket } from "./SocketDAO";
+
 export const streamVideo = videoStream => {
   console.log("sending video");
   console.log(videoStream);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { socket } from "../Dao/VideoChatDao";
 import VideoChat from "./VideoChat";
+import { socket } from "../Dao/SocketDAO";
 
 export default function Test() {
   const [testText, setTestText] = useState<string>();
