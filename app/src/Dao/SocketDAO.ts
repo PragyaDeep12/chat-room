@@ -1,3 +1,3 @@
 export const socket = require("socket.io-client")(
-  "https://still-oasis-63050.herokuapp.com/"
+  "https://limitless-chamber-11506.herokuapp.com/"
 );
