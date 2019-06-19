@@ -70,5 +70,90 @@
 .chat-input-layout {
   position: fixed;
   bottom: 0px;
+  padding-left: 65px;
   width: 100vw;
+}
+.chat-body {
+  margin-left: 60px;
+}
+.user-icon {
+  content: url("../icons/user.svg");
+}
+.online-user {
+  width: 30px;
+  height: 30px;
+}
+
+.increased-height {
+  height: 90px !important;
+}
+.other-message {
+  text-align: left;
+}
+.other-message > div {
+  background: whitesmoke;
+  border-radius: 0px 15px;
+}
+.my-message {
+  text-align: right;
+}
+.my-message > div {
+  background: rgb(241, 229, 214);
+  border-radius: 15px 0px;
+}
+.message-box {
+  color: #2c2c2c;
+  display: inline-block;
+  max-width: 300px;
+  margin: 7px;
+  padding: 5px;
+}
+.user-name {
+  color: teal;
+  font-weight: 500;
+}
+.time {
+  color: teal;
+  float: right;
+  font-size: small;
+  padding-top: 5px;
+}
+.loading-background {
+  position: fixed;
+
+  height: 100vh;
+  width: 100vw;
+  background: #2c2c2c;
+  opacity: 0.7;
+}
+.loading-icon-container {
+  vertical-align: center;
+}
+.rotate {
+  /* padding: 20% 39%;
+  */
+  margin-top: 40vh;
+  width: 100px;
+  height: 100px;
+  content: url("../icons/loading.svg");
+  -webkit-animation: spin 0.8s infinite linear;
+  animation: spin 1s infinite linear;
+}
+
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
