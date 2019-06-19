@@ -58,8 +58,9 @@ function LoginWrapper(props) {
     if (!isMounted) {
       isMounted = true;
       firebase.auth().onAuthStateChanged(
-        user => {
+        async user => {
           if (user) {
+            await getUserDetails(user.uid);
             setLoginDetails({
               isLoggedIn: true,
               uid: user.uid,
