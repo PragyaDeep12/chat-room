@@ -84,10 +84,11 @@ function LoginWrapper(props) {
     return <Redirect to="/Chat" />;
   } else {
     console.log(loginInfo);
-    if (loginInfo.isLoggedIn === null) {
-      return <Loading />;
+    if (loginInfo.isLoggedIn === false) {
+      return <LoginSignup page={props.page} />;
+     
     }
-    return <LoginSignup page={props.page} />;
+    return <Loading />;
   }
 }
 function PrivateRoute({ component: Component, ...rest }) {
