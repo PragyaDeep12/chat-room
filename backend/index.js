@@ -35,20 +35,14 @@ io.on("connection", socket => {
   socket.on("change_username", data => {
     socket.username = data.username;
     //when user has a username he is online so add to online users here
-    onlineUsers.push(socket.username);
+    addToOnlineUser(data.username);
     io.sockets.emit("latestOnlineUsers", onlineUsers);
   });
 
   //called when clients disconnected
   socket.on("disconnect", data => {
-    console.log(data);
-    io.sockets.emit(data);
-    // var index = onlineUsers.findIndex(socket.username);
-    // if (index != -1) {
-    // onlineUsers.splice(index, 1);
-    // io.sockets.emit("latestOnlineUsers", onlineUsers);
-    //}
-    // console.log(data);
+    removeFromOnlineUser(socket.username);
+    io.sockets.emit("latestOnlineUsers", onlineUsers);
   });
   //get Online users
   socket.on("getOnlineUsers", data => {
@@ -131,4 +125,17 @@ const getToneAnalysis = text => {
     }
   });
   return promise;
+};
+const removeFromOnlineUser = e => {
+  if (e) {
+    var index = onlineUsers.indexOf(e);
+    onlineUsers.splice(index, 1);
+  }
+  // console.log(list);
+};
+const addToOnlineUser = e => {
+  if (e) {
+    onlineUsers.push(e);
+  }
+  // console.log(list);
 };
