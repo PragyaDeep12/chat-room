@@ -17,7 +17,6 @@ export default function ChatScreen() {
         });
       });
       socket.on("getNewMessage", data => {
-        console.log(data);
         var newMessage: Message = {
           userName: data.userName,
           message: data.message,
