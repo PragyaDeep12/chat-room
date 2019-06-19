@@ -16,11 +16,8 @@ import LoginProvider from "./Contexts/LoginProvider";
 import CustomSnackbar from "./Components/CustomSnackBar";
 
 import { Redirect } from "react-router-dom";
-<<<<<<< HEAD
 import { socket } from "./Dao/SocketDAO";
-=======
 import Loading from "./Pages/Loading";
->>>>>>> 90a9cc21b1f059cd71ad07397d29887247f91504
 
 function App() {
   return (
