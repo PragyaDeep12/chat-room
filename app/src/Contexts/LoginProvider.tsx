@@ -6,6 +6,7 @@ import { openSnackbar } from "../Components/CustomSnackBar";
 import User from "../Models/User";
 import { string } from "prop-types";
 import { stringify } from "querystring";
+import { socket } from "../Dao/SocketDAO";
 
 export default function LoginProvider(props) {
   const [loginInfo, setLoginInfo] = useState<LoginInfo>({
@@ -13,98 +14,25 @@ export default function LoginProvider(props) {
     user: null,
     uid: null
   });
-  var observe: () => void;
-
-  const saveUser = async user => {
-    var db = firebase.firestore();
-  };
-  const getUser = async uid => {
-    var db = firebase.firestore();
-    await db
-      .collection("users")
-      .doc(uid)
-      .get()
-      .then(user => {
-        console.log(user);
-      });
-    return true;
-  };
   const setLoginDetails = (loginInfo: LoginInfo) => {
     setLoginInfo(loginInfo);
   };
   const login = async (email, password) => {
-    let uid;
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(async user => {
-        if (user && user.user && user.user.uid) {
-          console.log(user.user.uid);
-          uid = user.user.uid;
-          var username = await getDb()
-            .collection("usernames")
-            .doc(user.user.uid)
-            .onSnapshot(async snapshot => {
-              var data = snapshot.data();
-              if (data) {
-                var username = data.username;
-                await getDb()
-                  .collection("users")
-                  .doc(username)
-                  .onSnapshot(async user => {
-                    var userData = user.data();
-                    if (userData) {
-                      var userDetails: User = {
-                        userName: userData.userName,
-                        status: "online",
-                        email: userData.email,
-                        uid: uid,
-                        name: userData.name
-                      };
-                      // if (userDetails.userName) {
-                      //   localStorage.setItem(
-                      //     "user",
-                      //     userDetails.userName.toString()
-                      //   );
-                      // }
-                      localStorage.setItem("user", JSON.stringify(userDetails));
-                      await setLoginInfo({
-                        ...loginInfo,
-                        isLoggedIn: true,
-                        user: userDetails,
-                        uid: uid
-                      });
-                      // console.log(userDetails);
-                    }
-                  });
-              }
-            });
-        }
+        console.log(user);
       })
       .catch(err => {
-        //console.log(err.message);
         openSnackbar({ message: err.message });
       });
   };
   const getDb = () => {
     return firebase.firestore();
   };
-  const checkUserName = async userName => {
-    console.log("here");
-    getDb()
-      .collection("usernames")
-      .doc("username")
-      .get()
-      .then(userNames => {
-        console.log(userNames);
-        return true;
-      });
-    return false;
-  };
 
   const signUp = async (email, password, userName, name) => {
-    //var val = await checkUserName(userName);
-
     var firebaseDoc = await getDb()
       .collection("users")
       .doc(userName)
@@ -125,22 +53,14 @@ export default function LoginProvider(props) {
               status: "online",
               name: name
             };
-            console.log(user.user.uid);
-            var createUser = await getDb()
+            await getDb()
               .collection("users")
               .doc(userName)
               .set(userObj);
-            var setLoginDetaills = await getDb()
+            await getDb()
               .collection("usernames")
               .doc(user.user.uid)
               .set({ username: userName });
-
-            await setLoginInfo({
-              ...loginInfo,
-              isLoggedIn: true,
-              user: userObj,
-              uid: user.user.uid
-            });
             return true;
           }
         })
@@ -155,108 +75,32 @@ export default function LoginProvider(props) {
           return false;
         });
     }
-
-    //firebase.auth().createUserWithEmailAndPassword;
-    // getAuth()
-    //   .createUserWithEmailAndPassword(email, password)
-    //   .then(firebaseUser => {
-    //     let color = getRandomColor();
-    //     let user = firebaseUser.user;
-    //     console.log(color);
-    //     console.log(user);
-    //     if (user) {
-    //       getDb()
-    //         .collection("usernames")
-    //         .doc(username)
-    //         .set({ email: email })
-    //         .then(value => {
-    //           console.log("created username");
-    //           if (user)
-    //             getDb()
-    //               .collection("users")
-    //               .doc(user.uid)
-    //               .set({
-    //                 email: email,
-    //                 username: username,
-    //                 state: "online",
-    //                 last_changed: 1558097573186,
-    //                 color: color,
-    //                 goOffline: false
-    //               })
-    //               .then(res => {
-    //                 console.log("created user details");
-    //               })
-    //               .catch(err => {
-    //                 console.error(err);
-    //               });
-    //         })
-    //         .catch(err => {
-    //           console.error(err);
-    //         });
-    //     }
-    //   })
-    //   .catch(err => {
-    //     if (err.code == "auth/email-already-in-use") {
-    //       openSnackbar({
-    //         message: SIGNUP_EMAIL_ALREADY_FOUND,
-    //         timeout: SNACKBAR_TIMEOUT
-    //       });
-    //     }
-    //   });
   };
   const getUserDetails = uid => {
-    // getConnectionStatus(uid);
-    // if (uid)
-    //   observe = getDb()
-    //     .collection("users")
-    //     .doc(uid)
-    //     .onSnapshot(
-    //       docSnap => {
-    //         if (docSnap.exists) {
-    //           var data = docSnap.data();
-    //           if (data) {
-    //             var username = data.username;
-    //             var email = data.email;
-    //             var last_changed = data.last_changed;
-    //             var state = data.state;
-    //             var color = data.color;
-    //             var goOffline = data.goOffline;
-    //             setLoginInfo({
-    //               ...loginInfo,
-    //               isLoggedIn: true,
-    //               uid: uid,
-    //               userDetails: {
-    //                 username: username,
-    //                 email: email,
-    //                 last_changed: last_changed,
-    //                 state: state,
-    //                 color: color,
-    //                 goOffline: goOffline
-    //               }
-    //             });
-    //           } else {
-    //             setLoginInfo({
-    //               ...loginInfo,
-    //               isLoggedIn: false,
-    //               uid: null,
-    //               userDetails: null
-    //             });
-    //           }
-    //         } else {
-    //           setLoginInfo({
-    //             ...loginInfo,
-    //             isLoggedIn: false,
-    //             uid: null,
-    //             userDetails: null
-    //           });
-    //           console.log("document not found");
-    //         }
-    //       },
-    //       err => {
-    //         console.error(err);
-    //       }
-    //     );
-    // else observe();
+    getDb()
+      .collection("users")
+      .where("uid", "==", uid)
+      .get()
+      .then(res => {
+        if (res) {
+          var userDetails = res.docs[0].data();
+          if (userDetails as User) {
+            var user: User = {
+              email: userDetails.email,
+              name: userDetails.name,
+              uid: userDetails.uid,
+              status: userDetails.status,
+              userName: userDetails.userName
+            };
+            //now we have got username so we will be psuhing it to server
+            socket.emit("change_username", userDetails.userName);
+            setLoginInfo({ ...loginInfo, user: user });
+          }
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
   return (
     <LoginContext.Provider

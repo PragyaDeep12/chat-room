@@ -6,8 +6,6 @@ export default function MessageBox(message: Message) {
   var user = localStorage.getItem("user");
   if (user) {
   }
-
-  console.log(message.userName);
   if (user) {
     if (message.userName === JSON.parse(user).userName) {
       return (

@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useDebounce } from "./Debouncer";
 import Message from "../Models/Message";
 import { socket } from "../Dao/SocketDAO";
+import LoginContext from "../Contexts/LoginContext";
 export default function ChatInputLayout() {
   const [messageText, setMessageText] = React.useState();
   const [emojiClassName, setEmojiClassName] = useState("emoji confused-emoji");
   const emojiFetch = useDebounce(messageText, 1000);
-
+  const {
+    state: { loginInfo }
+  } = useContext(LoginContext);
   let isMounted = false;
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isMounted) {
       isMounted = true;
       socket.on("toneAnalysed", data => {
@@ -65,7 +68,18 @@ export default function ChatInputLayout() {
       }
     }
   }, [emojiFetch]);
-
+  //send messages using username
+  const sendMessage = body => {
+    if (loginInfo.user) {
+      var message: Message = {
+        userName: loginInfo.user.userName,
+        message: body,
+        time: new Date()
+      };
+      console.log(message);
+      socket.emit("newMessage", message);
+    }
+  };
   const getEmoji = async () => {
     console.log("getting emoji");
     // await socket.emit("getToneAnalysis", message);
@@ -90,18 +104,7 @@ export default function ChatInputLayout() {
             className="input-group-text"
             id="basic-addon2"
             onClick={() => {
-              var userName = "";
-              var user = localStorage.getItem("user");
-              if (user) {
-                userName = JSON.parse(user).userName;
-              }
-              var message: Message = {
-                userName: userName,
-                message: messageText,
-                time: new Date()
-              };
-              console.log(message);
-              socket.emit("newMessage", message);
+              sendMessage(messageText);
             }}
           >
             <img className=" emoji send-icon" alt="" />
