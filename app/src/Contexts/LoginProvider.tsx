@@ -4,6 +4,8 @@ import LoginContext from "./LoginContext";
 import LoginInfo from "../Models/LoginInfo";
 import { openSnackbar } from "../Components/CustomSnackBar";
 import User from "../Models/User";
+import { string } from "prop-types";
+import { stringify } from "querystring";
 
 export default function LoginProvider(props) {
   const [loginInfo, setLoginInfo] = useState<LoginInfo>({
@@ -59,6 +61,13 @@ export default function LoginProvider(props) {
                         uid: uid,
                         name: userData.name
                       };
+                      // if (userDetails.userName) {
+                      //   localStorage.setItem(
+                      //     "user",
+                      //     userDetails.userName.toString()
+                      //   );
+                      // }
+                      localStorage.setItem("user", JSON.stringify(userDetails));
                       await setLoginInfo({
                         ...loginInfo,
                         isLoggedIn: true,

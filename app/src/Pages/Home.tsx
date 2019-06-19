@@ -7,12 +7,15 @@ import ChatScreen from "../Components/ChatScreen";
 
 export default function Home() {
   return (
-    <div>
-      {/* <Sidebar /> */}
-      <Navbar />
-      render the whole chats
-      <ChatScreen />
+    <React.Fragment>
+      <Sidebar />
+      <main className="chat-body">
+        <Navbar />
+        render the whole chats
+        <ChatScreen />
+      </main>
+
       <ChatInputLayout />
-    </div>
+    </React.Fragment>
   );
 }

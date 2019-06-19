@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import "./Styles/stylesheet.css";
+import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 import "./Styles/bootstrap.css";
 
 import firebase from "firebase";
@@ -15,6 +16,7 @@ import LoginProvider from "./Contexts/LoginProvider";
 import CustomSnackbar from "./Components/CustomSnackBar";
 
 import { Redirect } from "react-router-dom";
+import Loading from "./Pages/Loading";
 
 function App() {
   return (
@@ -33,6 +35,7 @@ function App() {
               exact={true}
               render={props => <LoginWrapper page="login" />}
             />
+            {/* <Route path="/loading" exact={true} component={Loading} /> */}
             <PrivateRoute path="/Chat" component={Home} />
           </Switch>
         </Router>
@@ -62,7 +65,7 @@ function LoginWrapper(props) {
               user: { email: user.email, status: "online", uid: user.uid }
             });
           } else {
-            setLoginDetails({ isLoggedIn: null, uid: null, user: null });
+            setLoginDetails({ isLoggedIn: false, uid: null, user: null });
           }
         },
         error => {}
@@ -78,6 +81,10 @@ function LoginWrapper(props) {
     console.log("here");
     return <Redirect to="/Chat" />;
   } else {
+    console.log(loginInfo);
+    if (loginInfo.isLoggedIn === null) {
+      return <Loading />;
+    }
     return <LoginSignup page={props.page} />;
   }
 }
@@ -96,7 +103,11 @@ function PrivateRoute({ component: Component, ...rest }) {
           loginInfo.user != null
         ) {
           return <Component {...props} />;
+        } else if (loginInfo.isLoggedIn === true) {
+          console.log("here");
+          return <Redirect to="/loading" />;
         }
+        console.log(loginInfo);
         return <Redirect to="/login" />;
       }}
     />

@@ -6,17 +6,11 @@ export default function ChatInputLayout() {
   const [message, setMessage] = React.useState();
   const [emojiClassName, setEmojiClassName] = useState("emoji confused-emoji");
   const emojiFetch = useDebounce(message, 1000);
-  const sendMessage = async message => {
-    await socket.emit("newMessage", message);
-    console.log(message);
-  };
+
   let isMounted = false;
   React.useEffect(() => {
     if (!isMounted) {
       isMounted = true;
-      socket.on("newMessageRecieved", data => {
-        console.log(data);
-      });
       socket.on("toneAnalysed", data => {
         console.log(data);
         console.log(data.document_tone.tones);
@@ -74,13 +68,12 @@ export default function ChatInputLayout() {
 
   const getEmoji = async () => {
     console.log("getting emoji");
-    await socket.emit("getToneAnalysis", message);
+    // await socket.emit("getToneAnalysis", message);
   };
   return (
     <div className="chat-input-layout">
       <div className="input-group">
-        <input
-          type="text"
+        <textarea
           className="form-control"
           aria-label="Recipient's username"
           aria-describedby="basic-addon2"
@@ -97,11 +90,18 @@ export default function ChatInputLayout() {
             className="input-group-text"
             id="basic-addon2"
             onClick={() => {
-              sendMessage({
-                userName: "Pragya",
+              var userName = "";
+              var user = localStorage.getItem("user");
+              if (user) {
+                userName = JSON.parse(user).userName;
+              }
+              var message: Message = {
+                userName: userName,
                 message: "firstMessage",
                 time: new Date()
-              });
+              };
+              console.log(message);
+              socket.emit("newMessage", message);
             }}
           >
             <img className=" emoji send-icon" alt="" />
