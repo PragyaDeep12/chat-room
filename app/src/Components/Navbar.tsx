@@ -7,7 +7,7 @@ export default function Navbar() {
     if (!isMounted) {
       isMounted = true;
       socket.on("latestOnlineUsers", onlineUsers => {
-        console.log(onlineUsers);
+        // console.log(onlineUsers);
       });
     }
   }, []);

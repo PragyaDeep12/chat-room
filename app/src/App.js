@@ -58,15 +58,9 @@ function LoginWrapper(props) {
     if (!isMounted) {
       isMounted = true;
       firebase.auth().onAuthStateChanged(
-        async user => {
+        user => {
           if (user) {
-            await getUserDetails(user.uid);
-            setLoginDetails({
-              isLoggedIn: true,
-              uid: user.uid,
-              user: { email: user.email, status: "online", uid: user.uid }
-            });
-            // socket.emit("change_username", { username: user.email });
+            setLoginDetails({ isLoggedIn: true, uid: user.uid, user: null });
           } else {
             setLoginDetails({ isLoggedIn: false, uid: null, user: null });
           }
@@ -77,18 +71,24 @@ function LoginWrapper(props) {
   }, []);
   if (
     loginInfo &&
+    loginInfo.uid != null &&
+    loginInfo.isLoggedIn === true &&
+    loginInfo.user === null
+  ) {
+    getUserDetails(loginInfo.uid);
+  }
+  if (
+    loginInfo &&
     loginInfo.isLoggedIn === true &&
     loginInfo.uid != null &&
     loginInfo.user != null
   ) {
-    console.log("here");
     return <Redirect to="/Chat" />;
   } else {
-    console.log(loginInfo);
-    if (loginInfo.isLoggedIn === null) {
-      return <Loading />;
+    if (loginInfo.isLoggedIn === false) {
+      return <LoginSignup page={props.page} />;
     }
-    return <LoginSignup page={props.page} />;
+    return <Loading />;
   }
 }
 function PrivateRoute({ component: Component, ...rest }) {
@@ -99,19 +99,10 @@ function PrivateRoute({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={props => {
-        if (
-          loginInfo &&
-          loginInfo.isLoggedIn === true &&
-          loginInfo.uid != null &&
-          loginInfo.user != null
-        ) {
-          return <Component {...props} />;
-        } else if (loginInfo.isLoggedIn === true) {
-          console.log("here");
-          return <Redirect to="/loading" />;
+        if (!loginInfo.isLoggedIn) {
+          return <Redirect to="/login" />;
         }
-        console.log(loginInfo);
-        return <Redirect to="/login" />;
+        return <Component {...props} />;
       }}
     />
   );

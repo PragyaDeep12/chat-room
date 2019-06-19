@@ -12,7 +12,6 @@ export default function ChatScreen() {
       isMounted = true;
       socket.emit("requestAllMessages", { data: "OK" });
       socket.on("getAllMessages", data => {
-        console.log(data);
         data.forEach(element => {
           setMessage(element);
         });

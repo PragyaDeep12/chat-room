@@ -6,6 +6,7 @@ import { openSnackbar } from "../Components/CustomSnackBar";
 import User from "../Models/User";
 import { string } from "prop-types";
 import { stringify } from "querystring";
+import { socket } from "../Dao/SocketDAO";
 
 export default function LoginProvider(props) {
   const [loginInfo, setLoginInfo] = useState<LoginInfo>({
@@ -13,7 +14,6 @@ export default function LoginProvider(props) {
     user: null,
     uid: null
   });
-
   const setLoginDetails = (loginInfo: LoginInfo) => {
     setLoginInfo(loginInfo);
   };
@@ -76,20 +76,25 @@ export default function LoginProvider(props) {
         });
     }
   };
-  const getUserDetails = async uid => {
-    await getDb()
+  const getUserDetails = uid => {
+    getDb()
       .collection("users")
       .where("uid", "==", uid)
       .get()
       .then(res => {
         if (res) {
-          var userDetails = res.docs[0].data() as User;
-          if (userDetails) {
-            setLoginDetails({
-              isLoggedIn: true,
-              uid: uid,
-              user: userDetails
-            });
+          var userDetails = res.docs[0].data();
+          if (userDetails as User) {
+            var user: User = {
+              email: userDetails.email,
+              name: userDetails.name,
+              uid: userDetails.uid,
+              status: userDetails.status,
+              userName: userDetails.userName
+            };
+            //now we have got username so we will be psuhing it to server
+            socket.emit("change_username", userDetails.userName);
+            setLoginInfo({ ...loginInfo, user: user });
           }
         }
       })
