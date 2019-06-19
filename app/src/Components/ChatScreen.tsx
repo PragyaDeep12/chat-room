@@ -5,10 +5,8 @@ export default function ChatScreen() {
   useEffect(() => {
     if (!isMounted) {
       isMounted = true;
-      console.log("condsole");
-      socket.emit("requestAllMessages", { data: "OKO" });
+      socket.emit("requestAllMessages", { data: "OK" });
       socket.on("getAllMessages", data => {
-        console.log("calles");
         console.log(data);
       });
       socket.on("getNewMessage", data => {

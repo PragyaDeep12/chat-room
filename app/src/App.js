@@ -15,6 +15,7 @@ import LoginProvider from "./Contexts/LoginProvider";
 import CustomSnackbar from "./Components/CustomSnackBar";
 
 import { Redirect } from "react-router-dom";
+import { socket } from "./Dao/SocketDAO";
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function LoginWrapper(props) {
               uid: user.uid,
               user: { email: user.email, status: "online", uid: user.uid }
             });
+            // socket.emit("change_username", { username: user.email });
           } else {
             setLoginDetails({ isLoggedIn: null, uid: null, user: null });
           }

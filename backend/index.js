@@ -1,7 +1,8 @@
 const express = require("express");
-const app = express();
-var bodyParser = require("body-parser");
-const cors = require("cors")({ origin: true });
+// const app = express();
+
+// var bodyParser = require("body-parser");
+// const cors = require("cors")({ origin: true });
 const ToneAnalyzerV3 = require("watson-developer-cloud/tone-analyzer/v3");
 const WATSON_API_URL =
   "https://gateway-lon.watsonplatform.net/tone-analyzer/api";
@@ -19,12 +20,11 @@ const WATSON_API_KEY = "PokY8B7Ncv-_tQDxwC2J4FHHH0KoHR0nvZcv3Mj0Y-sJ";
  *
  * ****/
 var messageList = [];
-app.use(cors);
-app.use(bodyParser.json());
+var onlineUsers = [];
 
 //sockets for video chat
 const io = require("socket.io")();
-io.origins("*:*");
+io.set("origins", "*:*");
 io.on("connection", socket => {
   console.log("connected");
 
@@ -34,11 +34,20 @@ io.on("connection", socket => {
   //when username changes from clint
   socket.on("change_username", data => {
     socket.username = data.username;
+    //when user has a username he is online so add to online users here
+    onlineUsers.push(socket.username);
+    io.sockets.emit("latestOnlineUsers", onlineUsers);
   });
 
-  //called when disconnected
+  //called when clients disconnected
   socket.on("disconnect", data => {
     console.log(data);
+    // var index = onlineUsers.findIndex(socket.username);
+    // if (index != -1) {
+    // onlineUsers.splice(index, 1);
+    // io.sockets.emit("latestOnlineUsers", onlineUsers);
+    //}
+    // console.log(data);
   });
   //get Online users
   socket.on("getOnlineUsers", data => {
@@ -68,7 +77,7 @@ io.on("connection", socket => {
   socket.on("newMessage", data => {
     console.log(data);
     try {
-      // messageList.push(dssata);
+      messageList.push(data);
       io.sockets.emit("getNewMessage", data);
     } catch (err) {
       console.log("Error= " + err);
@@ -79,8 +88,8 @@ io.on("connection", socket => {
   socket.on("requestAllMessages", data => {
     console.log("here got the data" + data);
     try {
-      // socket.emit("getAllMessages", messageList);
-      socket.emit("getAllMessages", { status: "OK" });
+      socket.emit("getAllMessages", messageList);
+      // socket.emit("getAllMessages", { status: "OK" });
     } catch (err) {
       console.log("Error= " + err);
     }
