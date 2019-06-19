@@ -13,6 +13,9 @@ export default function ChatScreen() {
       socket.emit("requestAllMessages", { data: "OK" });
       socket.on("getAllMessages", data => {
         console.log(data);
+        data.forEach(element => {
+          setMessage(element);
+        });
       });
       socket.on("getNewMessage", data => {
         console.log(data);
@@ -37,6 +40,7 @@ export default function ChatScreen() {
               message={item.message}
               userName={item.userName}
               time={item.time}
+              key={index}
             />
           );
       })}

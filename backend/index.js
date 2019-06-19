@@ -42,6 +42,7 @@ io.on("connection", socket => {
   //called when clients disconnected
   socket.on("disconnect", data => {
     console.log(data);
+    io.sockets.emit(data);
     // var index = onlineUsers.findIndex(socket.username);
     // if (index != -1) {
     // onlineUsers.splice(index, 1);

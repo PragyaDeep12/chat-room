@@ -11,7 +11,6 @@ export default function Home() {
       <Sidebar />
       <main className="chat-body">
         <Navbar />
-        render the whole chats
         <ChatScreen />
       </main>
 

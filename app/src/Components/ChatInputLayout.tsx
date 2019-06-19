@@ -3,9 +3,9 @@ import { useDebounce } from "./Debouncer";
 import Message from "../Models/Message";
 import { socket } from "../Dao/SocketDAO";
 export default function ChatInputLayout() {
-  const [message, setMessage] = React.useState();
+  const [messageText, setMessageText] = React.useState();
   const [emojiClassName, setEmojiClassName] = useState("emoji confused-emoji");
-  const emojiFetch = useDebounce(message, 1000);
+  const emojiFetch = useDebounce(messageText, 1000);
 
   let isMounted = false;
   React.useEffect(() => {
@@ -59,7 +59,7 @@ export default function ChatInputLayout() {
   useEffect(() => {
     if (emojiFetch) {
       console.log("called");
-      if (message.length > 0) getEmoji();
+      if (messageText.length > 0) getEmoji();
       else {
         setEmojiClassName("emoji confused-emoji");
       }
@@ -79,7 +79,7 @@ export default function ChatInputLayout() {
           aria-describedby="basic-addon2"
           name="message"
           onChange={async e => {
-            setMessage(e.target.value);
+            setMessageText(e.target.value);
           }}
         />
         <div className="input-group-append">
@@ -97,7 +97,7 @@ export default function ChatInputLayout() {
               }
               var message: Message = {
                 userName: userName,
-                message: "firstMessage",
+                message: messageText,
                 time: new Date()
               };
               console.log(message);
