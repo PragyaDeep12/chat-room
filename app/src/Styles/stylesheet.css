@@ -110,13 +110,18 @@
 }
 .user-name {
   color: teal;
+  font-size: 12px;
   font-weight: 500;
+}
+.message {
+  width: 100%;
+  margin-bottom: 0px;
 }
 .time {
   color: teal;
-  float: right;
-  font-size: small;
-  padding-top: 5px;
+  width: 100%;
+  font-size: 12px;
+  text-align: right;
 }
 .loading-background {
   position: fixed;

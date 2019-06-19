@@ -61,7 +61,7 @@ export default function Sidebar() {
 
           {onlineUsers.map((user, index) => {
             return (
-              <NavItem>
+              <NavItem key={index}>
                 <NavIcon>
                   <img className="online-user user-icon" />
                 </NavIcon>

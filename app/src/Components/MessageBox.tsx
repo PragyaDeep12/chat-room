@@ -26,12 +26,14 @@ export default function MessageBox(message: Message) {
   return (
     <div className="other-message">
       <div className="message-box">
-        <div className="user-name">{message.userName}</div>
-        <label className="message">{message.message}</label>
-        <span className="time">
+        <div className="user-name">
+          {message.userName ? message.userName : "Anonymous"}
+        </div>
+        <div className="message">{message.message}</div>
+        <div className="time">
           {" "}
           {message.time ? format(message.time, "hh:mm a") : ""}
-        </span>
+        </div>
       </div>
     </div>
   );
