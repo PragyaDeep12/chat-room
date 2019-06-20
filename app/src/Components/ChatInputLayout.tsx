@@ -66,7 +66,6 @@ export default function ChatInputLayout(props) {
   }, [isMobile]);
   useEffect(() => {
     if (emojiFetch) {
-      console.log("called");
       if (messageText.length > 0) getEmoji();
       else {
         setEmojiClassName("emoji confused-emoji");
@@ -81,7 +80,6 @@ export default function ChatInputLayout(props) {
         message: body,
         time: new Date().getTime()
       };
-      console.log(message);
       socket.emit("newMessage", message);
       setMessageText("");
     }
@@ -152,7 +150,6 @@ export default function ChatInputLayout(props) {
             className="input-group-text"
             id="basic-addon2"
             onClick={() => {
-              console.log("here", messageText);
               sendMessage(messageText);
             }}
           >

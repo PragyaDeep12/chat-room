@@ -23,9 +23,9 @@ export default function Navbar() {
           type="button"
           className="navbar-logout"
           onClick={async () => {
-            // socket.disconnect();
-            // await firebase.auth().signOut();
-            openSnackbar({ message: "Demo Message", timeout: 3000 });
+            socket.disconnect();
+            await firebase.auth().signOut();
+            // openSnackbar({ message: "Demo Message", timeout: 3000 });
           }}
         >
           logout
