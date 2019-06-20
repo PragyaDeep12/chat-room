@@ -3,6 +3,7 @@ import { useDebounce } from "./Debouncer";
 import Message from "../Models/Message";
 import { socket } from "../Dao/SocketDAO";
 import LoginContext from "../Contexts/LoginContext";
+import { switchCase } from "@babel/types";
 export default function ChatInputLayout() {
   const [messageText, setMessageText] = React.useState();
   const [emojiClassName, setEmojiClassName] = useState("emoji confused-emoji");
@@ -69,7 +70,7 @@ export default function ChatInputLayout() {
     }
   }, [emojiFetch]);
   //send messages using username
-  const sendMessage = body => {
+  const sendMessage = async body => {
     if (loginInfo.user) {
       var message: Message = {
         userName: loginInfo.user.userName,
@@ -79,6 +80,36 @@ export default function ChatInputLayout() {
       console.log(message);
       socket.emit("newMessage", message);
       setMessageText("");
+    }
+  };
+  const sendEmoji = async () => {
+    console.log("sending");
+
+    switch (emojiClassName) {
+      case "emoji confused-emoji":
+        {
+          console.log("here");
+          await sendMessage(":| ");
+        }
+        break;
+      case "emoji happy-emoji":
+        {
+          await sendMessage(":) ");
+        }
+        break;
+      case "emoji sad-emoji":
+        {
+          await sendMessage(":( ");
+        }
+        break;
+      case "emoji scared-emoji":
+        {
+          await sendMessage(":E ");
+        }
+        break;
+      case "emoji angry-emoji": {
+        await sendMessage(":? ");
+      }
     }
   };
   const getEmoji = async () => {
@@ -100,12 +131,20 @@ export default function ChatInputLayout() {
         />
         <div className="input-group-append">
           <label className="input-group-text ">
-            <img className={emojiClassName} />
+            <img
+              className={emojiClassName}
+              id="emoji"
+              onClick={async () => {
+                alert("clock");
+                await sendEmoji();
+              }}
+            />
           </label>
           <button
             className="input-group-text"
             id="basic-addon2"
             onClick={() => {
+              console.log("here", messageText);
               sendMessage(messageText);
             }}
           >
