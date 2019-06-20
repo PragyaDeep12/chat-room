@@ -44,8 +44,26 @@ export default function Sidebar(props) {
                 if (docs.data()) {
                   var user: User = docs.data() as User;
                   if (loginInfo && loginInfo.user) {
-                    if (loginInfo.user.userName !== user.userName)
+                    if (loginInfo.user.userName != user.userName) {
                       users.push(user);
+                      users.push(user);
+                      users.push(user);
+                      users.push(user);
+                      users.push(user);
+                      users.push(user);
+                      users.push(user);
+                      users.push(user);
+                      users.push(user);
+                      users.push(user);
+                      users.push(user);
+                      users.push(user);
+                      users.push(user);
+                      users.push(user);
+                      users.push(user);
+                      users.push(user);
+                      users.push(user);
+                      users.push(user);
+                    }
                   }
                 }
               });
@@ -97,89 +115,20 @@ export default function Sidebar(props) {
               <div className="line" />
             </NavText>
           </NavItem>
-
-          {onlineUsers.map((user: User, index) => {
-            return (
-              <NavItem key={index}>
-                <NavIcon>
-                  <img className="online-user user-icon" />
-                </NavIcon>
-                <NavText style={{ align: "left" }}>{user.userName}</NavText>
-              </NavItem>
-            );
-          })}
-          <NavItem>
-            <NavIcon>
-              <img className="online-user user-icon" />
-            </NavIcon>
-            <NavText style={{ align: "left" }}>{"user.userName"}</NavText>
-          </NavItem>
-          <NavItem>
-            <NavIcon>
-              <img className="online-user user-icon" />
-            </NavIcon>
-            <NavText style={{ align: "left" }}>{"user.userName"}</NavText>
-          </NavItem>
-          <NavItem>
-            <NavIcon>
-              <img className="online-user user-icon" />
-            </NavIcon>
-            <NavText style={{ align: "left" }}>{"user.userName"}</NavText>
-          </NavItem>
-          <NavItem>
-            <NavIcon>
-              <img className="online-user user-icon" />
-            </NavIcon>
-            <NavText style={{ align: "left" }}>{"user.userName"}</NavText>
-          </NavItem>
-          <NavItem>
-            <NavIcon>
-              <img className="online-user user-icon" />
-            </NavIcon>
-            <NavText style={{ align: "left" }}>{"user.userName"}</NavText>
-          </NavItem>
-          <NavItem>
-            <NavIcon>
-              <img className="online-user user-icon" />
-            </NavIcon>
-            <NavText style={{ align: "left" }}>{"user.userName"}</NavText>
-          </NavItem>
-          <NavItem>
-            <NavIcon>
-              <img className="online-user user-icon" />
-            </NavIcon>
-            <NavText style={{ align: "left" }}>{"user.userName"}</NavText>
-          </NavItem>
-          <NavItem>
-            <NavIcon>
-              <img className="online-user user-icon" />
-            </NavIcon>
-            <NavText style={{ align: "left" }}>{"user.userName"}</NavText>
-          </NavItem>
-          <NavItem>
-            <NavIcon>
-              <img className="online-user user-icon" />
-            </NavIcon>
-            <NavText style={{ align: "left" }}>{"user.userName"}</NavText>
-          </NavItem>
-          <NavItem>
-            <NavIcon>
-              <img className="online-user user-icon" />
-            </NavIcon>
-            <NavText style={{ align: "left" }}>{"user.userName"}</NavText>
-          </NavItem>
-          <NavItem>
-            <NavIcon>
-              <img className="online-user user-icon" />
-            </NavIcon>
-            <NavText style={{ align: "left" }}>{"user.userName"}</NavText>
-          </NavItem>
-          <NavItem>
-            <NavIcon>
-              <img className="online-user user-icon" />
-            </NavIcon>
-            <NavText style={{ align: "left" }}>{"user.userName"}</NavText>
-          </NavItem>
+          <div className="online-user-list">
+            <SideNav.Nav>
+              {onlineUsers.map((user: User, index) => {
+                return (
+                  <NavItem key={index}>
+                    <NavIcon>
+                      <img className="online-user user-icon" />
+                    </NavIcon>
+                    <NavText>{user.userName}</NavText>
+                  </NavItem>
+                );
+              })}
+            </SideNav.Nav>
+          </div>
         </SideNav.Nav>
       </SideNav>
     </div>
