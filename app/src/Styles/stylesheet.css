@@ -114,6 +114,7 @@
   display: flex;
 }
 .other-message {
+  position: relative;
   margin-right: auto;
   margin-left: 0px;
   min-width: 100px;

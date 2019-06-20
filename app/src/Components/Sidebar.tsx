@@ -18,9 +18,7 @@ export default function Sidebar() {
   } = React.useContext(LoginContext);
   const [userName, setUserName] = useState();
   const [onlineUsers, setOnlineUsers] = useState<User[]>([]);
-  useEffect(() => {
-    console.log(onlineUsers);
-  }, [onlineUsers]);
+  useEffect(() => {}, [onlineUsers]);
   let isMounted = false;
   useEffect(() => {
     if (!isMounted) {
