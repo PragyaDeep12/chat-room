@@ -93,7 +93,7 @@ export default function LoginProvider(props) {
               userName: userDetails.userName
             };
             //now we have got username so we will be psuhing it to server
-            socket.emit("change_username", userDetails.userName);
+            socket.emit("change_username", { username: userDetails.userName });
             setLoginInfo({ ...loginInfo, user: user });
           }
         }
