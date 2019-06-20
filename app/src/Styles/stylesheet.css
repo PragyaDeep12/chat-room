@@ -75,7 +75,7 @@
   height: 60px;
 }
 .chat-body {
-  margin-left: 116px;
+  margin-left: 60px;
 }
 .chats {
   max-height: calc(100vh - 140px);
