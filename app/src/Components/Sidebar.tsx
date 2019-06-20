@@ -73,7 +73,9 @@ export default function Sidebar() {
           <NavItem>
             <NavIcon>{/* <img className="online-user user-icon" /> */}</NavIcon>
             <NavText style={{ align: "left" }}>
-              <div className="online-user-heading">Online Users</div>
+              <div className="online-user-heading">
+                Online Users ({onlineUsers.length})
+              </div>
               <div className="line" />
             </NavText>
           </NavItem>
