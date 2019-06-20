@@ -39,7 +39,10 @@ export default function Sidebar() {
               docsSnapshot.docs.forEach(docs => {
                 if (docs.data()) {
                   var user: User = docs.data() as User;
-                  users.push(user);
+                  if (loginInfo && loginInfo.user) {
+                    if (loginInfo.user.userName !== user.userName)
+                      users.push(user);
+                  }
                 }
               });
               setOnlineUsers(users);
