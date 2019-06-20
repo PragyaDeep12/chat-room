@@ -31,7 +31,7 @@ export default function ChatInputLayout(props) {
               console.log(a.score);
 
               console.log(b.score);
-              return a.score < b.score;
+              return b.score - a.score;
             });
           }
           console.log(mydata);
