@@ -112,9 +112,9 @@ export default function Sidebar(props) {
               <div className="online-user-heading">
                 Online Users ({onlineUsers.length})
               </div>
-              <div className="line" />
             </NavText>
           </NavItem>
+          <div className="line" />
           <div className="online-user-list">
             <SideNav.Nav>
               {onlineUsers.map((user: User, index) => {
