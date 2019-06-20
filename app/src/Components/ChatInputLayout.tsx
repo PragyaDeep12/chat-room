@@ -70,8 +70,8 @@ export default function ChatInputLayout() {
     }
   }, [emojiFetch]);
   //send messages using username
-  const sendMessage = async body => {
-    if (loginInfo.user) {
+  const sendMessage = body => {
+    if (loginInfo.user && body.length > 0) {
       var message: Message = {
         userName: loginInfo.user.userName,
         message: body,

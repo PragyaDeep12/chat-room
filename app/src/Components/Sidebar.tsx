@@ -18,9 +18,7 @@ export default function Sidebar() {
   } = React.useContext(LoginContext);
   const [userName, setUserName] = useState();
   const [onlineUsers, setOnlineUsers] = useState<User[]>([]);
-  useEffect(() => {
-    console.log(onlineUsers);
-  }, [onlineUsers]);
+  useEffect(() => {}, [onlineUsers]);
   let isMounted = false;
   useEffect(() => {
     if (!isMounted) {
@@ -81,7 +79,9 @@ export default function Sidebar() {
           <NavItem>
             <NavIcon>{/* <img className="online-user user-icon" /> */}</NavIcon>
             <NavText style={{ align: "left" }}>
-              <div className="online-user-heading">Online Users</div>
+              <div className="online-user-heading">
+                Online Users ({onlineUsers.length})
+              </div>
               <div className="line" />
             </NavText>
           </NavItem>

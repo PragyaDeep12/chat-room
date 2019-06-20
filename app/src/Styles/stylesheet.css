@@ -88,7 +88,11 @@
   height: 90px !important;
 }
 .other-message {
-  text-align: left;
+  position: relative;
+  margin-right: auto;
+  margin-left: 0px;
+  min-width: 100px;
+  max-width: calc(20% + 200px);
 }
 .other-message > div {
   background: whitesmoke;
