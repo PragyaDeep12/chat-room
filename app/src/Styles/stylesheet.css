@@ -217,3 +217,10 @@
   max-height: calc(100vh - 120px);
   overflow-y: scroll;
 }
+.chat-input-field:focus {
+  border-color: #e4e4e400 !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  border-radius: 0px !important;
+}

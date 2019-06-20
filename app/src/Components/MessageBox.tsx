@@ -2,26 +2,16 @@ import React, { useContext } from "react";
 import Message from "../Models/Message";
 import LoginContext from "../Contexts/LoginContext";
 import { format } from "date-fns";
+import HappyEmoji from "../icons/happy.svg";
+import SadEmoji from "../icons/sad.svg";
+import ConfusedEmoji from "../icons/confused.svg";
+import AngryEmoji from "../icons/angry.svg";
+import ScaredEmoji from "../icons/scared.svg";
+
 export default function MessageBox(message: Message) {
   const {
     state: { loginInfo }
   } = useContext(LoginContext);
-  const getMessage = async () => {
-    console.log("here");
-    switch (message.message) {
-      case ":)":
-        return <img alt=":)" className="happy-emoji" />;
-      case ":(":
-        return <img alt=":(" className="sad-emoji" />;
-      case ":|":
-        return <img alt=":|" className="confused-emoji" />;
-      case ":?":
-        return <img alt=":?" className="angry-emoji" />;
-      default:
-        return <span>{message.message}</span>;
-        break;
-    }
-  };
   if (loginInfo && loginInfo.user && loginInfo.user.userName) {
     return (
       <div className="message">
@@ -37,23 +27,23 @@ export default function MessageBox(message: Message) {
             <div className="message-text">
               {message.message === ":) " ? (
                 <div className="emoji">
-                  <img alt=":)" className="emoji happy-emoji" />
+                  <img alt=":)" className="emoji" src={HappyEmoji} />
                 </div>
               ) : message.message === ":| " ? (
                 <div className="emoji">
-                  <img alt=":|" className="emoji confused-emoji" />
+                  <img alt=":|" className="emoji" src={ConfusedEmoji} />
                 </div>
               ) : message.message === ":( " ? (
                 <div className="emoji">
-                  <img alt=":(" className="emoji sad-emoji" />
+                  <img alt=":(" className="emoji" src={SadEmoji} />
                 </div>
               ) : message.message === ":? " ? (
                 <div className="emoji">
-                  <img alt=":?" className="emoji angry-emoji" />
+                  <img alt=":?" className="emoji" src={AngryEmoji} />
                 </div>
               ) : message.message === ":E " ? (
                 <div className="emoji">
-                  <img alt=":E " className="emoji scared-emoji" />
+                  <img alt=":E " className="emoji" src={ScaredEmoji} />
                 </div>
               ) : (
                 message.message

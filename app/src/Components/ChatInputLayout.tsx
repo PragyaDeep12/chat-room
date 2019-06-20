@@ -128,7 +128,7 @@ export default function ChatInputLayout(props) {
     >
       <div className="input-group">
         <textarea
-          className="form-control"
+          className="form-control chat-input-field"
           aria-label="Recipient's username"
           aria-describedby="basic-addon2"
           name="message"
