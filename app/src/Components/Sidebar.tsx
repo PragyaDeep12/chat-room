@@ -32,14 +32,16 @@ export default function Sidebar() {
             .where("status", "==", "online")
             .get()
             .then(docsSnapshot => {
-              setOnlineUsers([]);
+              var users: User[] = [];
               docsSnapshot.docs.forEach(docs => {
                 // console.log(docs.data());
                 if (docs.data()) {
                   var user: User = docs.data() as User;
-                  setOnlineUsers([...onlineUsers, user]);
+                  // setOnlineUsers([...onlineUsers, user]);
+                  users.push(user);
                 }
               });
+              setOnlineUsers(users);
             });
         }
       });
