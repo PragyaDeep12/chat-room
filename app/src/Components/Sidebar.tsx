@@ -11,17 +11,24 @@ import { socket } from "../Dao/SocketDAO";
 
 import firebase from "firebase";
 import User from "../Models/User";
+import { width } from "@material-ui/system";
+import { stat } from "fs";
 
-export default function Sidebar() {
+export default function Sidebar(props) {
   const {
     state: { loginInfo }
   } = React.useContext(LoginContext);
+  const { isMobile } = props;
   const [userName, setUserName] = useState();
   const [onlineUsers, setOnlineUsers] = useState<User[]>([]);
-  useEffect(() => {}, [onlineUsers]);
+  const [isOpen, setIsOpen] = useState<boolean>(!isMobile);
+  useEffect(() => {
+    setIsOpen(!isMobile);
+  }, [isMobile]);
   let isMounted = false;
   useEffect(() => {
     if (!isMounted) {
+      isMounted = true;
       if (loginInfo && loginInfo.user && loginInfo.user.name) {
         setUserName(loginInfo.user.name);
       }
@@ -45,12 +52,18 @@ export default function Sidebar() {
         }
       });
     }
-  });
+  }, []);
   return (
     <div>
       <SideNav
         onSelect={selected => {
           // Add your code here
+        }}
+        disabled={!isMobile}
+        expanded={isOpen}
+        onToggle={state => {
+          // console.log(state);
+          setIsOpen(state);
         }}
       >
         <SideNav.Toggle />

@@ -67,18 +67,28 @@
   background: url("../icons/background1.jpg");
   background-repeat: repeat;
 }
-.chat-input-layout {
+.chat-input-layout-mobile {
   position: fixed;
   bottom: 0px;
-  padding-left: 65px;
-  width: 100vw;
+  left: 60px;
+  width: calc(100vw - 60px);
   height: 60px;
 }
-.chat-body {
+.chat-input-layout-desktop {
+  position: fixed;
+  bottom: 0px;
+  left: 240px;
+  width: calc(100vw - 240px);
+  height: 60px;
+}
+.chat-body-mobile {
   margin-left: 60px;
 }
+.chat-body-desktop {
+  margin-left: 240px;
+}
 .chats {
-  max-height: calc(100vh - 140px);
+  max-height: calc(100vh - 120px);
   overflow-y: scroll;
 }
 .user-icon {
@@ -112,28 +122,25 @@
 }
 .message {
   display: flex;
+  margin-bottom: 10px;
 }
 .other-message {
   position: relative;
-  margin-right: auto;
-  margin-left: 0px;
+  margin-left: 15px;
   min-width: 100px;
   max-width: calc(20% + 200px);
-}
-.other-message > div {
-  background: whitesmoke;
-  border-radius: 0px 15px;
+  background-color: whitesmoke;
+  border-radius: 15px 0px;
+  margin-right: auto;
 }
 .my-message {
-  position: relative;
-  margin-right: 0px;
-  margin-left: auto;
   min-width: 100px;
-  max-width: calc(20% + 500px);
-}
-.my-message > div {
-  background: rgb(241, 229, 214);
+  max-width: calc(20% + 200px);
+  position: relative;
+  background-color: rgb(241, 229, 214);
   border-radius: 15px 0px;
+  margin-right: 15px;
+  margin-left: auto;
 }
 .message-box {
   color: #2c2c2c;

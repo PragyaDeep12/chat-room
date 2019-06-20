@@ -3,10 +3,12 @@ import { useDebounce } from "./Debouncer";
 import Message from "../Models/Message";
 import { socket } from "../Dao/SocketDAO";
 import LoginContext from "../Contexts/LoginContext";
-export default function ChatInputLayout() {
+export default function ChatInputLayout(props) {
   const [messageText, setMessageText] = React.useState();
   const [emojiClassName, setEmojiClassName] = useState("emoji confused-emoji");
   const emojiFetch = useDebounce(messageText, 1000);
+  // const [isOpen,setIsOpen]
+  const { isMobile } = props;
   const {
     state: { loginInfo }
   } = useContext(LoginContext);
@@ -60,6 +62,9 @@ export default function ChatInputLayout() {
     }
   }, []);
   useEffect(() => {
+    console.log(isMobile);
+  }, [isMobile]);
+  useEffect(() => {
     if (emojiFetch) {
       console.log("called");
       if (messageText.length > 0) getEmoji();
@@ -86,7 +91,11 @@ export default function ChatInputLayout() {
     // await socket.emit("getToneAnalysis", message);
   };
   return (
-    <div className="chat-input-layout">
+    <div
+      className={
+        isMobile ? "chat-input-layout-mobile" : "chat-input-layout-desktop"
+      }
+    >
       <div className="input-group">
         <textarea
           className="form-control"
