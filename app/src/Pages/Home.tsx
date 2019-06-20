@@ -26,7 +26,15 @@ export default function Home() {
     }
   }, []);
   useEffect(() => {
-    console.log(isMobile);
+    // console.log(isMobile);
+    if (!isMobile) {
+      document.getElementsByClassName(
+        "sidenav---sidenav-toggle---1KRjR"
+      )[0].className = "vanish";
+    } else {
+      document.getElementsByClassName("vanish")[0].className =
+        "sidenav---sidenav-toggle---1KRjR";
+    }
   }, [isMobile]);
   return (
     <React.Fragment>
@@ -35,7 +43,6 @@ export default function Home() {
         <Navbar />
         <ChatScreen />
       </main>
-
       <ChatInputLayout isMobile={isMobile} />
     </React.Fragment>
   );

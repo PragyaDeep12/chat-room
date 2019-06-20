@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import firebase from "firebase";
 import { socket } from "../Dao/SocketDAO";
+import { openSnackbar } from "./CustomSnackBar";
 export default function Navbar() {
   let isMounted = false;
   useEffect(() => {
@@ -22,8 +23,9 @@ export default function Navbar() {
           type="button"
           className="navbar-logout"
           onClick={async () => {
-            socket.disconnect();
-            await firebase.auth().signOut();
+            // socket.disconnect();
+            // await firebase.auth().signOut();
+            openSnackbar({ message: "Demo Message", timeout: 3000 });
           }}
         >
           logout

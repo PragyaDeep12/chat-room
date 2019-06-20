@@ -130,6 +130,7 @@
 .message {
   display: flex;
   padding-bottom: 10px;
+  word-wrap: break-word;
 }
 .other-message {
   position: relative;
@@ -152,7 +153,7 @@
 .message-box {
   color: #2c2c2c;
   display: inline-block;
-  max-width: 300px;
+  max-width: calc(20% + 200px);
   min-width: 100px;
   margin: 7px;
   padding: 5px;
@@ -163,7 +164,7 @@
   font-weight: 500;
   text-align: left;
 }
-.message {
+.message-text {
   width: 100%;
   margin-bottom: 0px;
   text-align: left;
@@ -231,4 +232,7 @@
   margin-right: 10px;
   width: calc(100% - 20px);
   background-color: #ffffff;
+}
+.vanish {
+  display: none;
 }
