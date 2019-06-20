@@ -22,6 +22,7 @@ export default function Navbar() {
           type="button"
           className="navbar-logout"
           onClick={async () => {
+            socket.disconnect();
             await firebase.auth().signOut();
           }}
         >
