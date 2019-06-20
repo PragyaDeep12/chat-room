@@ -16,9 +16,7 @@ export default function ChatScreen() {
           setMessage(element);
         });
       });
-      socket.on("latestOnlineUsers", data => {
-        console.log(data);
-      });
+
       socket.on("getNewMessage", data => {
         var newMessage: Message = {
           userName: data.userName,
@@ -33,7 +31,7 @@ export default function ChatScreen() {
     setMessageList([...messageList, message]);
   }, [message]);
   return (
-    <div>
+    <div className="chats">
       {messageList.map((item: Message, index) => {
         if (item)
           return (

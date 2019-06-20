@@ -1,8 +1,4 @@
 const express = require("express");
-// const app = express();
-
-// var bodyParser = require("body-parser");
-// const cors = require("cors")({ origin: true });
 const ToneAnalyzerV3 = require("watson-developer-cloud/tone-analyzer/v3");
 const WATSON_API_URL =
   "https://gateway-lon.watsonplatform.net/tone-analyzer/api";
@@ -19,6 +15,18 @@ const WATSON_API_KEY = "PokY8B7Ncv-_tQDxwC2J4FHHH0KoHR0nvZcv3Mj0Y-sJ";
  * 6) git push heroku master
  *
  * ****/
+const firebase = require("firebase");
+// Your web app's Firebase configuration
+var firebaseConfig = {
+  apiKey: "AIzaSyBcp3foKTJXDg-zxijmR1nS3Gwf28LXQHo",
+  authDomain: "chatapp-529b9.firebaseapp.com",
+  databaseURL: "https://chatapp-529b9.firebaseio.com",
+  projectId: "chatapp-529b9",
+  storageBucket: "",
+  messagingSenderId: "884053658028",
+  appId: "1:884053658028:web:01b7a181476a366d"
+};
+firebase.initializeApp(firebaseConfig);
 var messageList = [];
 var onlineUsers = [];
 
@@ -35,58 +43,74 @@ io.on("connection", socket => {
   socket.on("change_username", data => {
     socket.username = data.username;
     //when user has a username he is online so add to online users here
-    addToOnlineUser(data.username);
-    io.sockets.emit("latestOnlineUsers", onlineUsers);
+    try {
+      setUserOnline(socket.username);
+    } catch (err) {
+      console.error(err);
+    }
   });
-
   //called when clients disconnected
   socket.on("disconnect", data => {
-    removeFromOnlineUser(socket.username);
-    io.sockets.emit("latestOnlineUsers", onlineUsers);
-  });
-  //get Online users
-  socket.on("getOnlineUsers", data => {
-    console.log(data);
+    try {
+      setUserOffline(socket.username);
+    } catch (err) {
+      console.error(err);
+    }
   });
 
   //get whenever there is a video update
   socket.on("videoUpdate", data => {
     console.log("video Avail");
-    console.log(data);
-    io.sockets.emit("newOthersVideoUpdates", {
-      username: socket.username,
-      video: data
-    });
+    try {
+      console.log(data);
+      io.sockets.emit("newOthersVideoUpdates", {
+        username: socket.username,
+        video: data
+      });
+    } catch (err) {
+      console.error(err);
+    }
   });
 
   //get Tone Analysis from WATSON SDK
   socket.on("getToneAnalysis", data => {
     var analyseText = data;
-    getToneAnalysis(analyseText).then(result => {
-      console.log("Tone resolved: ");
-      console.log("result");
-      socket.emit("toneAnalysed", result);
-    });
+    try {
+      getToneAnalysis(analyseText).then(result => {
+        console.log("Tone resolved: ");
+        console.log("result");
+        socket.emit("toneAnalysed", result);
+      });
+    } catch (err) {
+      console.error(err);
+    }
   });
   //called when newMessage Comes from user
-  socket.on("newMessage", data => {
-    console.log(data);
+  socket.on("newMessage", message => {
     try {
-      messageList.push(data);
-      io.sockets.emit("getNewMessage", data);
+      pushMessageToDb(message);
     } catch (err) {
-      console.log("Error= " + err);
+      console.error("Error= " + err);
     }
   });
 
   //request for all messages
   socket.on("requestAllMessages", data => {
-    console.log("here got the data" + data);
     try {
-      socket.emit("getAllMessages", messageList);
-      // socket.emit("getAllMessages", { status: "OK" });
+      getAllMessagesFromDB()
+        .then(
+          messages => {
+            socket.emit("getAllMessages", messages);
+          },
+          error => {
+            console.log(error);
+          }
+        )
+        .catch(err => {
+          console.error(err);
+        });
     } catch (err) {
-      console.log("Error= " + err);
+      console.error("Error= " + err);
     }
   });
 });
@@ -126,16 +150,79 @@ const getToneAnalysis = text => {
   });
   return promise;
 };
-const removeFromOnlineUser = e => {
-  if (e) {
-    var index = onlineUsers.indexOf(e);
-    onlineUsers.splice(index, 1);
+const setUserOnline = username => {
+  try {
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(username)
+      .update({ status: "online" })
+      .then(res => {
+        io.sockets.emit("latestOnlineUsersArrived", "check");
+      });
+  } catch (err) {
+    console.error(err);
   }
-  // console.log(list);
 };
-const addToOnlineUser = e => {
-  if (e) {
-    onlineUsers.push(e);
+const setUserOffline = username => {
+  try {
+    firebase
+      .firestore()
+      .collection("users")
+      .doc(username)
+      .update({ status: "offline" })
+      .then(res => {
+        io.sockets.emit("latestOnlineUsersArrived", "check");
+      });
+  } catch (err) {
+    console.error(err);
   }
-  // console.log(list);
+};
+const pushMessageToDb = message => {
+  try {
+    if (message.time) {
+      firebase
+        .firestore()
+        .collection("messages")
+        .doc(message.time.toString())
+        .set(message)
+        .then(res => {
+          io.sockets.emit("getNewMessage", message);
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+const getAllMessagesFromDB = () => {
+  var promise = new Promise((resolve, reject) => {
+    try {
+      firebase
+        .firestore()
+        .collection("messages")
+        .get()
+        .then(querySnapshot => {
+          if (querySnapshot) {
+            var messages = [];
+            querySnapshot.docs.forEach(messageDoc => {
+              if (messageDoc) {
+                messages.push(messageDoc.data());
+              }
+            });
+            resolve(messages);
+          }
+        })
+        .catch(err => {
+          reject(err);
+          console.error(err);
+        });
+    } catch (err) {
+      reject(err);
+      console.error(err);
+    }
+  });
+  return promise;
 };

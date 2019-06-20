@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import SideNav, {
   Toggle,
   Nav,
@@ -9,31 +9,40 @@ import SideNav, {
 import LoginContext from "../Contexts/LoginContext";
 import { socket } from "../Dao/SocketDAO";
 
+import firebase from "firebase";
+import User from "../Models/User";
+
 export default function Sidebar() {
   const {
     state: { loginInfo }
   } = React.useContext(LoginContext);
   const [userName, setUserName] = React.useState("");
-  const [onlineUsers, setOnlineUsers]: [Array<String>, any] = React.useState([
-    "User1",
-    "User2",
-    "User3",
-    "User4",
-    "User5",
-    "User6"
-  ]);
-
+  const [onlineUsers, setOnlineUsers] = useState<User[]>([]);
+  useEffect(() => {
+    console.log(onlineUsers);
+  }, [onlineUsers]);
   let isMounted = false;
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isMounted) {
-      socket.on("getOnlineUsers", data => {
-        setOnlineUsers(data);
+      socket.on("latestOnlineUsersArrived", data => {
+        if (data === "check") {
+          firebase
+            .firestore()
+            .collection("users")
+            .where("status", "==", "online")
+            .get()
+            .then(docsSnapshot => {
+              setOnlineUsers([]);
+              docsSnapshot.docs.forEach(docs => {
+                // console.log(docs.data());
+                if (docs.data()) {
+                  var user: User = docs.data() as User;
+                  setOnlineUsers([...onlineUsers, user]);
+                }
+              });
+            });
+        }
       });
-      let user = localStorage.getItem("user");
-
-      if (user) {
-        setUserName(JSON.parse(user).userName);
-      }
     }
   });
   return (
@@ -59,13 +68,13 @@ export default function Sidebar() {
             </NavItem>
           </NavItem>
 
-          {onlineUsers.map((user, index) => {
+          {onlineUsers.map((user: User, index) => {
             return (
               <NavItem key={index}>
                 <NavIcon>
                   <img className="online-user user-icon" />
                 </NavIcon>
-                <NavText style={{ align: "left" }}>{user}</NavText>
+                <NavText style={{ align: "left" }}>{user.name}</NavText>
               </NavItem>
             );
           })}

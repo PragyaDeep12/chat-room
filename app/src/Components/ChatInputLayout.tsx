@@ -74,10 +74,11 @@ export default function ChatInputLayout() {
       var message: Message = {
         userName: loginInfo.user.userName,
         message: body,
-        time: new Date()
+        time: new Date().getTime()
       };
       console.log(message);
       socket.emit("newMessage", message);
+      setMessageText("");
     }
   };
   const getEmoji = async () => {
@@ -92,6 +93,7 @@ export default function ChatInputLayout() {
           aria-label="Recipient's username"
           aria-describedby="basic-addon2"
           name="message"
+          value={messageText}
           onChange={async e => {
             setMessageText(e.target.value);
           }}

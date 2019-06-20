@@ -6,9 +6,9 @@ export default function Navbar() {
   useEffect(() => {
     if (!isMounted) {
       isMounted = true;
-      socket.on("latestOnlineUsers", onlineUsers => {
-        // console.log(onlineUsers);
-      });
+      // socket.on("latestOnlineUsers", onlineUsers => {
+      //   // console.log(onlineUsers);
+      // });
     }
   }, []);
   return (
