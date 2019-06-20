@@ -21,9 +21,7 @@ export default function LoginProvider(props) {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(async user => {
-        console.log(user);
-      })
+      .then(async user => {})
       .catch(err => {
         openSnackbar({ message: err.message });
       });
