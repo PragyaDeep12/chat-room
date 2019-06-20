@@ -94,20 +94,9 @@
 .user-icon {
   content: url("../icons/user.svg");
 }
-.online-user-heading {
-  padding-left: 20px;
-  padding-right: 20px;
-}
 .online-user {
   width: 30px;
   height: 30px;
-}
-.line {
-  background-color: rgb(255, 255, 255);
-  width: calc(100% - 20px);
-  height: 1px;
-  margin-left: 10px;
-  margin-right: 10px;
 }
 
 .increased-height {
@@ -146,6 +135,7 @@
   color: #2c2c2c;
   display: inline-block;
   max-width: 300px;
+  min-width: 100px;
   margin: 7px;
   padding: 5px;
 }
@@ -153,13 +143,11 @@
   color: teal;
   font-size: 12px;
   font-weight: 500;
-  text-align: left;
 }
-.message-text {
-  word-wrap: break-word;
-  text-align: left;
+.message {
+  width: 100%;
+  margin-bottom: 0px;
 }
-
 .time {
   color: teal;
   width: 100%;
@@ -168,6 +156,7 @@
 }
 .loading-background {
   position: fixed;
+
   height: 100vh;
   width: 100vw;
   background: #2c2c2c;
@@ -203,4 +192,8 @@
     -o-transform: rotate(360deg);
     transform: rotate(360deg);
   }
+}
+
+.chats {
+  margin-bottom: 70px;
 }

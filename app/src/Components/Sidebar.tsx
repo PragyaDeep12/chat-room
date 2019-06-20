@@ -28,9 +28,8 @@ export default function Sidebar(props) {
   let isMounted = false;
   useEffect(() => {
     if (!isMounted) {
-      isMounted = true;
-      if (loginInfo && loginInfo.user && loginInfo.user.name) {
-        setUserName(loginInfo.user.name);
+      if (loginInfo && loginInfo.user && loginInfo.user.userName) {
+        setUserName(loginInfo.user.userName);
       }
       socket.on("latestOnlineUsersArrived", data => {
         if (data === "check") {
@@ -44,7 +43,10 @@ export default function Sidebar(props) {
               docsSnapshot.docs.forEach(docs => {
                 if (docs.data()) {
                   var user: User = docs.data() as User;
-                  users.push(user);
+                  if (loginInfo && loginInfo.user) {
+                    if (loginInfo.user.userName !== user.userName)
+                      users.push(user);
+                  }
                 }
               });
               setOnlineUsers(users);
@@ -77,6 +79,11 @@ export default function Sidebar(props) {
             </NavText>
             <NavItem>
               <NavText style={{ align: "left" }}>
+                {loginInfo.user ? loginInfo.user.name : "no name"}
+              </NavText>
+            </NavItem>
+            <NavItem>
+              <NavText style={{ align: "left" }}>
                 {loginInfo.user ? loginInfo.user.email : "no email"}
               </NavText>
             </NavItem>
@@ -97,10 +104,82 @@ export default function Sidebar(props) {
                 <NavIcon>
                   <img className="online-user user-icon" />
                 </NavIcon>
-                <NavText style={{ align: "left" }}>{user.name}</NavText>
+                <NavText style={{ align: "left" }}>{user.userName}</NavText>
               </NavItem>
             );
           })}
+          <NavItem>
+            <NavIcon>
+              <img className="online-user user-icon" />
+            </NavIcon>
+            <NavText style={{ align: "left" }}>{"user.userName"}</NavText>
+          </NavItem>
+          <NavItem>
+            <NavIcon>
+              <img className="online-user user-icon" />
+            </NavIcon>
+            <NavText style={{ align: "left" }}>{"user.userName"}</NavText>
+          </NavItem>
+          <NavItem>
+            <NavIcon>
+              <img className="online-user user-icon" />
+            </NavIcon>
+            <NavText style={{ align: "left" }}>{"user.userName"}</NavText>
+          </NavItem>
+          <NavItem>
+            <NavIcon>
+              <img className="online-user user-icon" />
+            </NavIcon>
+            <NavText style={{ align: "left" }}>{"user.userName"}</NavText>
+          </NavItem>
+          <NavItem>
+            <NavIcon>
+              <img className="online-user user-icon" />
+            </NavIcon>
+            <NavText style={{ align: "left" }}>{"user.userName"}</NavText>
+          </NavItem>
+          <NavItem>
+            <NavIcon>
+              <img className="online-user user-icon" />
+            </NavIcon>
+            <NavText style={{ align: "left" }}>{"user.userName"}</NavText>
+          </NavItem>
+          <NavItem>
+            <NavIcon>
+              <img className="online-user user-icon" />
+            </NavIcon>
+            <NavText style={{ align: "left" }}>{"user.userName"}</NavText>
+          </NavItem>
+          <NavItem>
+            <NavIcon>
+              <img className="online-user user-icon" />
+            </NavIcon>
+            <NavText style={{ align: "left" }}>{"user.userName"}</NavText>
+          </NavItem>
+          <NavItem>
+            <NavIcon>
+              <img className="online-user user-icon" />
+            </NavIcon>
+            <NavText style={{ align: "left" }}>{"user.userName"}</NavText>
+          </NavItem>
+          <NavItem>
+            <NavIcon>
+              <img className="online-user user-icon" />
+            </NavIcon>
+            <NavText style={{ align: "left" }}>{"user.userName"}</NavText>
+          </NavItem>
+          <NavItem>
+            <NavIcon>
+              <img className="online-user user-icon" />
+            </NavIcon>
+            <NavText style={{ align: "left" }}>{"user.userName"}</NavText>
+          </NavItem>
+          <NavItem>
+            <NavIcon>
+              <img className="online-user user-icon" />
+            </NavIcon>
+            <NavText style={{ align: "left" }}>{"user.userName"}</NavText>
+          </NavItem>
         </SideNav.Nav>
       </SideNav>
     </div>

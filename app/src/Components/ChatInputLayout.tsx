@@ -86,6 +86,36 @@ export default function ChatInputLayout(props) {
       setMessageText("");
     }
   };
+  const sendEmoji = async () => {
+    console.log("sending");
+
+    switch (emojiClassName) {
+      case "emoji confused-emoji":
+        {
+          console.log("here");
+          await sendMessage(":| ");
+        }
+        break;
+      case "emoji happy-emoji":
+        {
+          await sendMessage(":) ");
+        }
+        break;
+      case "emoji sad-emoji":
+        {
+          await sendMessage(":( ");
+        }
+        break;
+      case "emoji scared-emoji":
+        {
+          await sendMessage(":E ");
+        }
+        break;
+      case "emoji angry-emoji": {
+        await sendMessage(":? ");
+      }
+    }
+  };
   const getEmoji = async () => {
     console.log("getting emoji");
     // await socket.emit("getToneAnalysis", message);
@@ -109,12 +139,20 @@ export default function ChatInputLayout(props) {
         />
         <div className="input-group-append">
           <label className="input-group-text ">
-            <img className={emojiClassName} />
+            <img
+              className={emojiClassName}
+              id="emoji"
+              onClick={async () => {
+                alert("clock");
+                await sendEmoji();
+              }}
+            />
           </label>
           <button
             className="input-group-text"
             id="basic-addon2"
             onClick={() => {
+              console.log("here", messageText);
               sendMessage(messageText);
             }}
           >
