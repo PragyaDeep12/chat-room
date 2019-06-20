@@ -16,7 +16,7 @@ export default function Sidebar() {
   const {
     state: { loginInfo }
   } = React.useContext(LoginContext);
-  const [userName, setUserName] = React.useState("");
+  const [userName, setUserName] = useState();
   const [onlineUsers, setOnlineUsers] = useState<User[]>([]);
   useEffect(() => {
     console.log(onlineUsers);
@@ -24,6 +24,9 @@ export default function Sidebar() {
   let isMounted = false;
   useEffect(() => {
     if (!isMounted) {
+      if (loginInfo && loginInfo.user && loginInfo.user.name) {
+        setUserName(loginInfo.user.name);
+      }
       socket.on("latestOnlineUsersArrived", data => {
         if (data === "check") {
           firebase
@@ -34,10 +37,8 @@ export default function Sidebar() {
             .then(docsSnapshot => {
               var users: User[] = [];
               docsSnapshot.docs.forEach(docs => {
-                // console.log(docs.data());
                 if (docs.data()) {
                   var user: User = docs.data() as User;
-                  // setOnlineUsers([...onlineUsers, user]);
                   users.push(user);
                 }
               });
@@ -65,9 +66,16 @@ export default function Sidebar() {
             </NavText>
             <NavItem>
               <NavText style={{ align: "left" }}>
-                pragya.deep19@gmail.com
+                {loginInfo.user ? loginInfo.user.email : "no email"}
               </NavText>
             </NavItem>
+          </NavItem>
+          <NavItem>
+            <NavIcon>{/* <img className="online-user user-icon" /> */}</NavIcon>
+            <NavText style={{ align: "left" }}>
+              <div className="online-user-heading">Online Users</div>
+              <div className="line" />
+            </NavText>
           </NavItem>
 
           {onlineUsers.map((user: User, index) => {

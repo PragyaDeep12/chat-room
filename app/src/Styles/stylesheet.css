@@ -75,7 +75,7 @@
   height: 60px;
 }
 .chat-body {
-  margin-left: 60px;
+  margin-left: 116px;
 }
 .chats {
   max-height: calc(100vh - 140px);
@@ -84,15 +84,32 @@
 .user-icon {
   content: url("../icons/user.svg");
 }
+.online-user-heading {
+  padding-left: 20px;
+  padding-right: 20px;
+}
 .online-user {
   width: 30px;
   height: 30px;
+}
+.line {
+  background-color: rgb(255, 255, 255);
+  width: calc(100% - 20px);
+  height: 1px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .increased-height {
   height: 90px !important;
 }
-
+.navbar-logout {
+  margin-left: auto;
+  margin-right: 0px;
+  padding: 5px;
+  border: none;
+  font-weight: bold;
+}
 .message {
   display: flex;
 }
