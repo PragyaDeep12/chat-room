@@ -1,4 +1,6 @@
-const express = require("express");
+const express = require("express")();
+var server = require("http").Server(express);
+// var index=require("")
 const ToneAnalyzerV3 = require("watson-developer-cloud/tone-analyzer/v3");
 const WATSON_API_URL =
   "https://gateway-lon.watsonplatform.net/tone-analyzer/api";
@@ -33,7 +35,11 @@ var messageList = [];
 var onlineUsers = [];
 
 //sockets for video chat
-const io = require("socket.io")();
+const io = require("socket.io")(server);
+express.get("/*", function(req, res) {
+  res.sendFile(path.join(__dirname, "./public", "index.html"));
+  // res.sendFile("index.html", { root: path.join(__dirname, "public") });
+});
 io.set("origins", "*:*");
 io.on("connection", socket => {
   console.log("connected");
@@ -117,7 +123,7 @@ io.on("connection", socket => {
   });
 });
 
-io.listen(process.env.PORT || 4000);
+server.listen(process.env.PORT || 4000);
 const getToneAnalysis = text => {
   var promise = new Promise(async (resolve, reject) => {
     try {
