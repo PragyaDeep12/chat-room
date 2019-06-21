@@ -17,26 +17,25 @@ export default function ChatInputLayout(props) {
     if (!isMounted) {
       isMounted = true;
       socket.on("toneAnalysed", data => {
-        console.log(data);
-        console.log(data.document_tone.tones);
-        console.log(data.document_tone.tones.length);
-        console.log(JSON.stringify(data.document_tone.tones));
+        // console.log(data);
+        // console.log(data.document_tone.tones);
+        // console.log(data.document_tone.tones.length);
+        // console.log(JSON.stringify(data.document_tone.tones));
 
         if (data.document_tone.tones.length > 0) {
           var tone_id = data.document_tone.tones[0].tone_id;
-          console.log("here");
+          // console.log("here");
           var mydata = data.document_tone.tones;
           if (data.document_tone.tones.length > 1) {
             mydata = mydata.sort(function(a, b) {
-              console.log(a.score);
-
-              console.log(b.score);
+              // console.log(a.score);
+              // console.log(b.score);
               return b.score - a.score;
             });
           }
-          console.log(mydata);
+          // console.log(mydata);
           tone_id = mydata[0].tone_id;
-          console.log(tone_id);
+          // console.log(tone_id);
           switch (tone_id) {
             case "sadness":
               setEmojiClassName("emoji sad-emoji");
@@ -65,9 +64,6 @@ export default function ChatInputLayout(props) {
     }
   }, []);
   useEffect(() => {
-    console.log(isMobile);
-  }, [isMobile]);
-  useEffect(() => {
     if (emojiFetch) {
       if (messageText.length > 0) getEmoji();
       else {
@@ -88,7 +84,7 @@ export default function ChatInputLayout(props) {
     }
   };
   const sendEmoji = async () => {
-    console.log("sending");
+    // console.log("sending");
 
     switch (emojiClassName) {
       case "emoji confused-emoji":
@@ -125,7 +121,7 @@ export default function ChatInputLayout(props) {
     }
   };
   const getEmoji = async () => {
-    console.log("getting emoji");
+    // console.log("getting emoji");
     await socket.emit("getToneAnalysis", messageText);
   };
   return (
