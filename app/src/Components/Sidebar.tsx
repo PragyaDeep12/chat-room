@@ -46,23 +46,6 @@ export default function Sidebar(props) {
                   if (loginInfo && loginInfo.user) {
                     if (loginInfo.user.userName != user.userName) {
                       users.push(user);
-                      users.push(user);
-                      users.push(user);
-                      users.push(user);
-                      users.push(user);
-                      users.push(user);
-                      users.push(user);
-                      users.push(user);
-                      users.push(user);
-                      users.push(user);
-                      users.push(user);
-                      users.push(user);
-                      users.push(user);
-                      users.push(user);
-                      users.push(user);
-                      users.push(user);
-                      users.push(user);
-                      users.push(user);
                     }
                   }
                 }
