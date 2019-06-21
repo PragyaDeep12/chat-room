@@ -1,4 +1,5 @@
 import { socket } from "./Dao/SocketDAO";
+import { array } from "prop-types";
 
 export function showVideo(video, canvas) {
   var vendorURL = window.URL || window.webkitURL;
@@ -25,4 +26,19 @@ export function clickPicture(video, canvas) {
     var data = canvas.toDataURL("image/png");
     socket.emit("videoUpdate", data);
   }
+}
+
+export function sort(users) {
+  users.sort(GetSortOrder("score"));
+  console.log(users);
+}
+function GetSortOrder(prop) {
+  return function(a, b) {
+    if (a[prop] > b[prop]) {
+      return -1;
+    } else if (a[prop] < b[prop]) {
+      return 1;
+    }
+    return 0;
+  };
 }
