@@ -31,47 +31,51 @@ export default function LoginProvider(props) {
   };
 
   const signUp = async (email, password, userName, name) => {
-    var firebaseDoc = await getDb()
-      .collection("users")
-      .doc(userName)
-      .get();
-    if (firebaseDoc.exists) {
-      openSnackbar({ message: "Username Already Exists", timeout: 3000 });
-      return false;
+    if (email && password && userName && name) {
+      var firebaseDoc = await getDb()
+        .collection("users")
+        .doc(userName)
+        .get();
+      if (firebaseDoc.exists) {
+        openSnackbar({ message: "Username Already Exists", timeout: 3000 });
+        return false;
+      } else {
+        await firebase
+          .auth()
+          .createUserWithEmailAndPassword(email, password)
+          .then(async user => {
+            if (user.user) {
+              var userObj: User = {
+                email: email,
+                userName: userName,
+                uid: user.user.uid,
+                status: "online",
+                name: name
+              };
+              await getDb()
+                .collection("users")
+                .doc(userName)
+                .set(userObj);
+              await getDb()
+                .collection("usernames")
+                .doc(user.user.uid)
+                .set({ username: userName });
+              return true;
+            }
+          })
+          .catch(err => {
+            openSnackbar({ message: err.message, timeout: 3000 });
+
+            return false;
+          })
+          .catch(err => {
+            openSnackbar({ message: err.message, timeout: 3000 });
+
+            return false;
+          });
+      }
     } else {
-      await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then(async user => {
-          if (user.user) {
-            var userObj: User = {
-              email: email,
-              userName: userName,
-              uid: user.user.uid,
-              status: "online",
-              name: name
-            };
-            await getDb()
-              .collection("users")
-              .doc(userName)
-              .set(userObj);
-            await getDb()
-              .collection("usernames")
-              .doc(user.user.uid)
-              .set({ username: userName });
-            return true;
-          }
-        })
-        .catch(err => {
-          openSnackbar({ message: err.message, timeout: 3000 });
-
-          return false;
-        })
-        .catch(err => {
-          openSnackbar({ message: err.message, timeout: 3000 });
-
-          return false;
-        });
+      openSnackbar({ message: "Please fill up all fields !!!", timeout: 3000 });
     }
   };
   const getUserDetails = uid => {

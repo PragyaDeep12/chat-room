@@ -36,7 +36,7 @@ export default function CustomSnackbar() {
       hidden={!snack.open}
     >
       <strong>{snack.message}</strong>
-      <button
+      {/* <button
         type="button"
         className="close"
         data-dismiss="alert"
@@ -46,7 +46,7 @@ export default function CustomSnackbar() {
         }}
       >
         <span aria-hidden="true">&times;</span>
-      </button>
+      </button> */}
     </div>
   );
 }
