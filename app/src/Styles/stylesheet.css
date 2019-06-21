@@ -79,8 +79,8 @@
 .scared-emoji {
   content: url("../icons/scared.svg");
 }
-.thinking-emoji{
-  content: url("../icons/thinking.svg")
+.thinking-emoji {
+  content: url("../icons/thinking.svg");
 }
 .chat-app-background {
   background: url("../icons/background1.jpg");
@@ -248,4 +248,14 @@
 }
 .vanish {
   display: none;
+}
+.snackbar {
+  z-index: 10;
+  position: absolute !important;
+  top: 50px !important;
+  right: 25vw !important ;
+  width: calc(100vw - 50vw) !important;
+  -webkit-box-shadow: -1px 10px 36px -12px rgba(0, 0, 0, 0.64);
+  -moz-box-shadow: -1px 10px 36px -12px rgba(0, 0, 0, 0.64);
+  box-shadow: -1px 10px 36px -12px rgba(0, 0, 0, 0.64);
 }

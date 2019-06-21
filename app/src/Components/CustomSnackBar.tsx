@@ -28,7 +28,7 @@ export default function CustomSnackbar() {
   }, []);
   return (
     <div
-      className="alert alert-warning alert-dismissible fade show"
+      className="alert alert-warning alert-dismissible fade show snackbar"
       role="alert"
       hidden={!snack.open}
     >
