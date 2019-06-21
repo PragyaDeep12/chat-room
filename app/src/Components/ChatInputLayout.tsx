@@ -116,7 +116,7 @@ export default function ChatInputLayout(props) {
   };
   const getEmoji = async () => {
     console.log("getting emoji");
-    // await socket.emit("getToneAnalysis", message);
+    await socket.emit("getToneAnalysis", messageText);
   };
   return (
     <div
