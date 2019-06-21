@@ -25,9 +25,9 @@ export default function ChatInputLayout(props) {
         if (data.document_tone.tones.length > 0) {
           var tone_id = data.document_tone.tones[0].tone_id;
           console.log("here");
+          var mydata = data.document_tone.tones;
           if (data.document_tone.tones.length > 1) {
-            var mydata = data.document_tone.tones;
-            var mydata = mydata.sort(function(a, b) {
+            mydata = mydata.sort(function(a, b) {
               console.log(a.score);
 
               console.log(b.score);
@@ -50,6 +50,9 @@ export default function ChatInputLayout(props) {
               break;
             case "fear":
               setEmojiClassName("emoji scared-emoji");
+              break;
+            case "tentative":
+              setEmojiClassName("emoji thinking-emoji");
               break;
             default:
               setEmojiClassName("emoji confused-emoji");
@@ -109,9 +112,16 @@ export default function ChatInputLayout(props) {
           await sendMessage(":E ");
         }
         break;
-      case "emoji angry-emoji": {
-        await sendMessage(":? ");
-      }
+      case "emoji angry-emoji":
+        {
+          await sendMessage(":? ");
+        }
+        break;
+      case "emoji thinking-emoji":
+        {
+          await sendMessage(":!");
+        }
+        break;
     }
   };
   const getEmoji = async () => {
@@ -141,7 +151,6 @@ export default function ChatInputLayout(props) {
               className={emojiClassName}
               id="emoji"
               onClick={async () => {
-                alert("clock");
                 await sendEmoji();
               }}
             />
