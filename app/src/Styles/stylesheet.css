@@ -125,7 +125,15 @@
   margin-right: 0px;
   padding: 5px;
   border: none;
-  font-weight: bold;
+  font-weight: 500;
+  color: rgb(101, 57, 143);
+  background-color: rgba(255, 255, 255, 0);
+  border-radius: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.navbar-logout:hover {
+  background-color: rgb(241, 232, 250);
 }
 .message {
   display: flex;
@@ -134,11 +142,12 @@
 }
 .other-message {
   position: relative;
-  margin-left: 15px;
+  margin-left: 10px;
   min-width: 100px;
   max-width: calc(20% + 200px);
   background-color: whitesmoke;
-  border-radius: 15px 0px;
+  border-radius: 10px;
+  border-top-left-radius: 0px;
   margin-right: auto;
 }
 .my-message {
@@ -146,16 +155,16 @@
   max-width: calc(20% + 200px);
   position: relative;
   background-color: rgb(241, 229, 214);
-  border-radius: 15px 0px;
-  margin-right: 15px;
+  border-radius: 10px;
+  border-top-right-radius: 0px;
+  margin-right: 10px;
   margin-left: auto;
 }
 .message-box {
   color: #2c2c2c;
   display: inline-block;
-  max-width: calc(20% + 200px);
+  max-width: calc(100% - 20px);
   min-width: 100px;
-  margin: 7px;
   padding: 5px;
 }
 .user-name {
@@ -216,6 +225,7 @@
 }
 
 .chats {
+  padding-top: 10px;
   max-height: calc(100vh - 120px);
   overflow-y: scroll;
 }
