@@ -25,9 +25,9 @@ export default function ChatInputLayout(props) {
         if (data.document_tone.tones.length > 0) {
           var tone_id = data.document_tone.tones[0].tone_id;
           console.log("here");
+          var mydata = data.document_tone.tones;
           if (data.document_tone.tones.length > 1) {
-            var mydata = data.document_tone.tones;
-            var mydata = mydata.sort(function(a, b) {
+            mydata = mydata.sort(function(a, b) {
               console.log(a.score);
 
               console.log(b.score);
