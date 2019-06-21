@@ -51,6 +51,9 @@ export default function ChatInputLayout(props) {
             case "fear":
               setEmojiClassName("emoji scared-emoji");
               break;
+            case "tentative":
+              setEmojiClassName("emoji thinking-emoji");
+              break;
             default:
               setEmojiClassName("emoji confused-emoji");
               break;
@@ -109,9 +112,16 @@ export default function ChatInputLayout(props) {
           await sendMessage(":E ");
         }
         break;
-      case "emoji angry-emoji": {
-        await sendMessage(":? ");
-      }
+      case "emoji angry-emoji":
+        {
+          await sendMessage(":? ");
+        }
+        break;
+      case "emoji thinking-emoji":
+        {
+          await sendMessage(":!");
+        }
+        break;
     }
   };
   const getEmoji = async () => {
@@ -141,7 +151,6 @@ export default function ChatInputLayout(props) {
               className={emojiClassName}
               id="emoji"
               onClick={async () => {
-                alert("clock");
                 await sendEmoji();
               }}
             />

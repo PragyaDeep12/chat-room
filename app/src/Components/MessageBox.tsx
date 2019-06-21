@@ -7,6 +7,7 @@ import SadEmoji from "../icons/sad.svg";
 import ConfusedEmoji from "../icons/confused.svg";
 import AngryEmoji from "../icons/angry.svg";
 import ScaredEmoji from "../icons/scared.svg";
+import ThinkingEmoji from "../icons/thinking.svg";
 
 export default function MessageBox(message: Message) {
   const {
@@ -44,6 +45,10 @@ export default function MessageBox(message: Message) {
               ) : message.message === ":E " ? (
                 <div className="emoji">
                   <img alt=":E " className="emoji" src={ScaredEmoji} />
+                </div>
+              ) : message.message === ":!" ? (
+                <div className="emoji">
+                  <img alt=":E " className="emoji" src={ThinkingEmoji} />
                 </div>
               ) : (
                 message.message
