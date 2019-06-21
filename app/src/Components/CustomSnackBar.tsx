@@ -21,6 +21,9 @@ export default function CustomSnackbar() {
       message: message,
       onhide: onhide
     });
+    setTimeout(() => {
+      setSnack({ ...snack, open: false });
+    }, timeout);
   };
 
   useEffect(() => {

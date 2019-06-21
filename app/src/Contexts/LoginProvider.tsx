@@ -23,7 +23,7 @@ export default function LoginProvider(props) {
       .signInWithEmailAndPassword(email, password)
       .then(async user => {})
       .catch(err => {
-        openSnackbar({ message: err.message });
+        openSnackbar({ message: err.message, timeout: 3000 });
       });
   };
   const getDb = () => {
@@ -36,7 +36,7 @@ export default function LoginProvider(props) {
       .doc(userName)
       .get();
     if (firebaseDoc.exists) {
-      openSnackbar({ message: "Username Already Exists" });
+      openSnackbar({ message: "Username Already Exists", timeout: 3000 });
       return false;
     } else {
       await firebase
