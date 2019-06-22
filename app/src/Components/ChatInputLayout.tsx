@@ -4,7 +4,7 @@ import Message from "../Models/Message";
 import { socket } from "../Dao/SocketDAO";
 import LoginContext from "../Contexts/LoginContext";
 export default function ChatInputLayout(props) {
-  const [messageText, setMessageText] = React.useState();
+  const [messageText, setMessageText] = useState("");
   const [emojiClassName, setEmojiClassName] = useState("emoji confused-emoji");
   const emojiFetch = useDebounce(messageText, 1000);
   // const [isOpen,setIsOpen]

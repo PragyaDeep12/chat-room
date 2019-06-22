@@ -17,7 +17,7 @@ const WATSON_API_KEY = "PokY8B7Ncv-_tQDxwC2J4FHHH0KoHR0nvZcv3Mj0Y-sJ";
  * 6) git push heroku master
  *
  * ****/
-//https://git.heroku.com/protected-castle-89292.git front end link 
+//https://git.heroku.com/protected-castle-89292.git front end link
 //https://protected-castle-89292.herokuapp.com/  online deployment link
 const firebase = require("firebase");
 // Your web app's Firebase configuration
@@ -101,7 +101,15 @@ io.on("connection", socket => {
       console.error("Error= " + err);
     }
   });
-
+  //when socket user is typing
+  socket.on("isTyping", data => {
+    // io.socket.emit({ username: socket.username, isTyping: data });
+    socket.broadcast.emit("isTyping", {
+      username: socket.username,
+      isTyping: data
+    });
+    // io
+  });
   //request for all messages
   socket.on("requestAllMessages", data => {
     try {

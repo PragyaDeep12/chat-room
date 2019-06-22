@@ -13,6 +13,7 @@ import firebase from "firebase";
 import User from "../Models/User";
 import { width } from "@material-ui/system";
 import { stat } from "fs";
+import { format } from "util";
 
 export default function Sidebar(props) {
   const {
@@ -22,12 +23,29 @@ export default function Sidebar(props) {
   const [userName, setUserName] = useState();
   const [onlineUsers, setOnlineUsers] = useState<User[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(!isMobile);
+  const [typingMap, setTypingMap] = useState<Map<String, boolean>>();
+  // var typingMap: Map<String, boolean> = new Map();
   useEffect(() => {
     setIsOpen(!isMobile);
   }, [isMobile]);
   let isMounted = false;
   useEffect(() => {
     if (!isMounted) {
+      socket.on("isTyping", data => {
+        console.log(data);
+        var username = data.username;
+        var isTyping = data.isTyping;
+        // typingMap["username"]= isTyping;
+        if (typingMap) {
+          var tempMap = typingMap;
+        } else {
+          var tempMap: Map<String, boolean> = new Map();
+        }
+        tempMap.set(username, isTyping);
+        setTypingMap(tempMap);
+
+        // console.log(typingMap);
+      });
       if (loginInfo && loginInfo.user && loginInfo.user.userName) {
         setUserName(loginInfo.user.userName);
       }
@@ -106,7 +124,18 @@ export default function Sidebar(props) {
                     <NavIcon>
                       <img className="online-user user-icon" />
                     </NavIcon>
-                    <NavText>{user.userName}</NavText>
+                    <NavText>
+                      {user.userName
+                        ? user.userName +
+                          (typingMap
+                            ? typingMap.get(user.userName)
+                              ? typingMap.get(user.userName)
+                                ? "( Typing ... )"
+                                : ""
+                              : ""
+                            : "")
+                        : user.userName}
+                    </NavText>
                   </NavItem>
                 );
               })}
