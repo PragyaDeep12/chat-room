@@ -1,5 +1,6 @@
 import { socket } from "./Dao/SocketDAO";
 import { array } from "prop-types";
+import { format } from "util";
 
 export function showVideo(video, canvas) {
   var vendorURL = window.URL || window.webkitURL;
@@ -41,4 +42,22 @@ function GetSortOrder(prop) {
     }
     return 0;
   };
+}
+
+export function getDateFromMilis(timeInMilis) {
+  var date = new Date(timeInMilis);
+  var dateStr =
+    pad(date.getDate(), 2) +
+    "-" +
+    pad(date.getMonth(), 2) +
+    "-" +
+    date.getFullYear();
+  // console.log(dateStr);
+  return dateStr;
+}
+
+function pad(n, width) {
+  var z = "0";
+  n = n + "";
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }

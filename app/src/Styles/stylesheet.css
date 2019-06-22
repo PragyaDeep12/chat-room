@@ -152,6 +152,7 @@
   border-radius: 10px;
   border-top-left-radius: 0px;
   margin-right: auto;
+  box-shadow: 1px 1px 5px 1px rgba(88, 87, 87, 0.75);
 }
 .my-message {
   min-width: 100px;
@@ -162,13 +163,15 @@
   border-top-right-radius: 0px;
   margin-right: 10px;
   margin-left: auto;
+  box-shadow: 1px 1px 5px 1px rgba(88, 87, 87, 0.534);
 }
 .message-box {
   color: #2c2c2c;
   display: inline-block;
-  max-width: calc(100% - 20px);
+  max-width: 100%;
   min-width: 100px;
   padding: 5px;
+  padding-bottom: 2px;
 }
 .user-name {
   color: teal;
@@ -184,7 +187,7 @@
 .time {
   color: teal;
   width: 100%;
-  font-size: 12px;
+  font-size: 11px;
   text-align: right;
 }
 .loading-background {
@@ -259,4 +262,17 @@
   -webkit-box-shadow: -1px 10px 36px -12px rgba(0, 0, 0, 0.64);
   -moz-box-shadow: -1px 10px 36px -12px rgba(0, 0, 0, 0.64);
   box-shadow: -1px 10px 36px -12px rgba(0, 0, 0, 0.64);
+}
+.date-divider > hr {
+  margin-top: 0px !important;
+}
+.date-divider > span {
+  font-size: 12px;
+  background-color: #e6e2e294;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
+  margin: 0px !important;
+  border-radius: 10px;
+  font-weight: 500;
 }
