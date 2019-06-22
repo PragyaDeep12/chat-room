@@ -32,10 +32,8 @@ export default function Sidebar(props) {
   useEffect(() => {
     if (!isMounted) {
       socket.on("isTyping", data => {
-        console.log(data);
         var username = data.username;
         var isTyping = data.isTyping;
-        // typingMap["username"]= isTyping;
         if (typingMap) {
           var tempMap = typingMap;
         } else {
