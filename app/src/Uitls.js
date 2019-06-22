@@ -30,7 +30,7 @@ export function clickPicture(video, canvas) {
 
 export function sort(users) {
   users.sort(GetSortOrder("score"));
-  console.log(users);
+  //  console.log(users);
 }
 function GetSortOrder(prop) {
   return function(a, b) {
