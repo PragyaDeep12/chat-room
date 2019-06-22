@@ -5,17 +5,19 @@ export function useDebounce(value, delay) {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {
-    console.log("started typing");
-    socket.emit("isTyping", true);
-    const handler = setTimeout(() => {
-      console.log("stopped typing");
-      socket.emit("isTyping", false);
-      setDebouncedValue(value);
-    }, delay);
+    if (value) {
+      console.log("started typing");
+      socket.emit("isTyping", true);
+      const handler = setTimeout(() => {
+        console.log("stopped typing");
+        socket.emit("isTyping", false);
+        setDebouncedValue(value);
+      }, delay);
 
-    return () => {
-      clearTimeout(handler);
-    };
+      return () => {
+        clearTimeout(handler);
+      };
+    }
   }, [value]);
 
   return debouncedValue;
