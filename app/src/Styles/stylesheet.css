@@ -158,7 +158,7 @@
   min-width: 100px;
   max-width: calc(20% + 200px);
   position: relative;
-  background-color: rgb(241, 229, 214);
+  background-color: #d9b7db;
   border-radius: 10px;
   border-top-right-radius: 0px;
   margin-right: 10px;
@@ -277,7 +277,7 @@
   font-weight: 500;
 }
 .sidenav---sidenav---_2tBP {
-  background-color: rgb(134, 133, 22) !important;
+  background-color: #713775 !important;
 }
 .sidenav---navtext---1AE_f {
   color: #ffffff !important;
