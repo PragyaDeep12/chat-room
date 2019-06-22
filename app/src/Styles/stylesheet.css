@@ -147,7 +147,8 @@
   position: relative;
   margin-left: 10px;
   min-width: 100px;
-  max-width: calc(20% + 200px);
+
+  max-width: calc(50% + 50px);
   background-color: whitesmoke;
   border-radius: 10px;
   border-top-left-radius: 0px;
@@ -156,7 +157,7 @@
 }
 .my-message {
   min-width: 100px;
-  max-width: calc(20% + 200px);
+  max-width: calc(50% + 50px);
   position: relative;
   background-color: #d9b7db;
   border-radius: 10px;
