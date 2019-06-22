@@ -6,6 +6,7 @@ import { getDateFromMilis } from "../Uitls";
 export default function ChatScreen() {
   const [messageList, setMessageList]: [Array<Message>, any] = useState([]);
   const [message, setMessage] = useState<Message>();
+  const [chatRef, setChatRef] = useState<HTMLDivElement>();
   // const [previousDate]
   var previousDate, currentDate;
   let isMounted = false;
@@ -34,6 +35,9 @@ export default function ChatScreen() {
   }, []);
   useEffect(() => {
     setMessageList([...messageList, message]);
+    if (chatRef) {
+      chatRef.scrollIntoView({ behavior: "auto" });
+    }
   }, [message]);
   // var previousDate = "date";
   return (
@@ -75,6 +79,13 @@ export default function ChatScreen() {
           );
         }
       })}
+
+      <div
+        className="chat"
+        ref={el => {
+          if (el) setChatRef(el);
+        }}
+      />
     </div>
   );
 }
