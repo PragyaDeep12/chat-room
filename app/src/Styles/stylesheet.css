@@ -277,5 +277,20 @@
   font-weight: 500;
 }
 .sidenav---sidenav---_2tBP {
-  background-color: rgb(75, 109, 148) !important;
+  background-color: rgb(134, 133, 22) !important;
+}
+.sidenav---navtext---1AE_f {
+  color: #ffffff !important;
+  text-decoration-color: #ffffff !important;
+}
+.online-user-heading {
+  font-weight: 500;
+
+  color: #ffffff !important;
+  text-decoration-color: #ffffff !important;
+}
+.sidenav---sidenav-subnavitem---1cD47 > div > div {
+  font-weight: 500;
+  font-size: 16px;
+  text-align: left;
 }
