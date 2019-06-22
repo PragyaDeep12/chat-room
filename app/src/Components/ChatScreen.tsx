@@ -35,10 +35,12 @@ export default function ChatScreen() {
   }, []);
   useEffect(() => {
     setMessageList([...messageList, message]);
+  }, [message]);
+  useEffect(() => {
     if (chatRef) {
       chatRef.scrollIntoView({ behavior: "auto" });
     }
-  }, [message]);
+  }, [messageList]);
   // var previousDate = "date";
   return (
     <div className="chats">
